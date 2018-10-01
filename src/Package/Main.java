@@ -6,7 +6,7 @@
 package Package;
 
 /**
- *
+ *kappa
  * @author Edvin
  */
 public class Main {
