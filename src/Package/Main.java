@@ -10,12 +10,20 @@ package Package;
  * @author Edvin
  */
 public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        FormelMetoder fm = new FormelMetoder();
+        
+        fm.setT(0.4);
+        fm.setVinkel(30);
+        fm.setV0(10);
+        fm.setG(9.82);
+        
+        System.out.println(fm.xPosition());
+        System.out.println(fm.yPosition());
+        System.out.println(fm.xHastighet());
+        System.out.println(fm.yHastighet());
+        System.out.println(fm.sammanlagtHastighet());
     }
     
 }
