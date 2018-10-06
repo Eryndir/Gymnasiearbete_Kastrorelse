@@ -3,8 +3,9 @@ package Package;
     
     //Vet ej om double är bättre än int eller tvärtom.. antar att det är double i detta fallet
     //gör det möjligt att spara flera formler i en lista och ta fram dem senare
-
-    //vi måste komma på hur man avrundar saker hehe
+        
+    //vå bör leta upp formler till kaströrelser med luftmåtstånd senare
+        
     private double xStartHastighet; //Detta är V0x
     private double yStartHastighet; //Detta är V0y
     
@@ -19,7 +20,7 @@ package Package;
     private double Vinkel; //Denna får man också ändra längre fram så att användaren kan skriva in vinkeln
     
    
-    private double t; //Är också en variabel som behöver ändras så att användaren skriver in värdet
+    private double t = 0; //Är också en variabel som behöver ändras så att användaren skriver in värdet
     private double g; //Är helt enkelt 9.82 m/s, man kan också göra denna så att användaren skriver in en egen gravitation,
     //t.ex om man skulle vilja kasta på månen (?)                        
 
@@ -38,7 +39,19 @@ package Package;
     public void setG(double g) {
         this.g = g; //inmata gravitationsacceleration
     }
+
+    public double getT() {
+        return t; //ger ut tiden
+    }
+
+    public double getG() {
+        return g; // ger ut tyngdaccelerationen
+    }
     
+    public void adderaT(double term) {
+        this.t += term; 
+    // adderar en viss mängd på den tid som har blivit inmatad, om tid inte är definierat ännu adderas termen med noll
+    }
     
     public double xStartHastighet(){
         
@@ -94,4 +107,9 @@ package Package;
          
          return sammanlagtHastighet = Math.sqrt(Math.pow(xHastighet(), 2) + Math.pow(yHastighet(), 2));
     }
+    
+    public double totalaTid() {
+        return (- 2.0 * yHastighet() / -g); //räknar ut den totala kasttiden
+    }
+    
 }
