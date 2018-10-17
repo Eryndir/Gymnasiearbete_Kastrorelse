@@ -171,7 +171,7 @@ package Package;
     }
     
      public double yAcceleration(){
-        //formlen är aX = (((0.5) * c * p * a * V2) * V )/ m) * Vy
+        //formlen är ay = -g * (((0.5) * c * p * a * V2) * V )/ m) * Vy
         
         return yAcceleration = -g * ((((k)* (sammanlagtHastighet))/(massa))*(yHastighet));//ska räkna ut accelerationen i yled till luftmotståndet
     }
