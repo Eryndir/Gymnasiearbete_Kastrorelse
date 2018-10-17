@@ -19,7 +19,7 @@ package Package;
     private double V0; //Får skriva V0 i formlerna sålänge, sen får man ändra så att användaren skriver in värdena
     private double Vinkel; //Denna får man också ändra längre fram så att användaren kan skriva in vinkeln
         
-    public double luftmotstand; //Detta är luftmotståndet
+    public double k; //Detta är luftmotståndet
     public double c; //Detta är luftmotståndskoefficienten
     public double p; //Detta är luftens densitet, är 1,2041 kg/m3 i vanlig luft
     public double a; //Föremålets tvärsnittsarea
@@ -59,7 +59,10 @@ package Package;
         this.a = a; //inmata tvärsnittsarea
     }
             
-        
+    public void setMassa(double massa){
+         this.massa = massa; //inmata massa
+     }
+   
     
      public double getT() {
         return t; //ger ut tiden
@@ -81,7 +84,9 @@ package Package;
         return a; // ger ut Föremålets tvärsnittsarea
     }    
         
-        
+    public double getMassa(){
+        return massa; // ger ut Föremålets massa
+    }    
         
         
     public void adderaT(double term) {
@@ -149,14 +154,27 @@ package Package;
     }
     
     
-    public double luftmotstand(){
+    public double k(){
         //Formeln är F = 1/2 * c * p * a * V2
-        
+        //(k = F)
         //c = luftmotståndskoefficienten
         //p = luftens densitet
         //a = föremålets tvärsnittsarea
        
-        return luftmotstand = (0.5) * c * p * a * Math.pow(V0, 2); //räknar ut luftmotståndet 
+        return k = (0.5) * c * p * a * Math.pow(V0, 2); //räknar ut luftmotståndet 
         
     }
-}
+    public double xAcceleration(){
+        //formlen är aX = (((0.5) * c * p * a * V2) * V )/ m) * Vx
+        
+        return xAcceleration = -((((k)* sammanlagtHastighet)/(massa))*(xHastighet));//ska räkna ut accelerationen i xled till luftmotståndet
+    }
+    
+     public double yAcceleration(){
+        //formlen är aX = (((0.5) * c * p * a * V2) * V )/ m) * Vy
+        
+        return yAcceleration = -g * ((((k)* (sammanlagtHastighet))/(massa))*(yHastighet));//ska räkna ut accelerationen i yled till luftmotståndet
+    }
+    
+    
+    }
