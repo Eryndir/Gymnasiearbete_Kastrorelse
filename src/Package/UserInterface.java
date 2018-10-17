@@ -26,4 +26,16 @@ public class UserInterface {
         //läser nästa int som inmatas i konsolen som antal steg som ska räknas 
         //och räknar ut alla steg med de variabler som inmatats
     }
+    
+    public void startluftmotstand() {
+        System.out.print("Hastighet: ");
+        fm.setV0(scanner.nextDouble()); //läser nästa double som inmatas i konsolen som vinkeln för hastigheten
+        System.out.print("luftmotståndskoefficienten: ");
+        fm.setC(scanner.nextDouble());
+        System.out.print("luftens densitet: ");
+        fm.setP(scanner.nextDouble());
+        System.out.print("föremålets tvärsnittsarea: ");
+        fm.setA(scanner.nextDouble());
+        System.out.println(fm.luftmotstand());
+    }
 }
