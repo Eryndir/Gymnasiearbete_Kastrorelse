@@ -156,7 +156,7 @@ package Package;
         //p = luftens densitet
         //a = föremålets tvärsnittsarea
        
-        return luftmotstand = (1/2) * c * p * a * (V0 * V0); //räknar ut luftmotståndet 
+        return luftmotstand = (0.5) * c * p * a * Math.pow(V0, 2); //räknar ut luftmotståndet 
         
     }
 }
