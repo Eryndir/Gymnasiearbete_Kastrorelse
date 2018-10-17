@@ -18,12 +18,17 @@ package Package;
     
     private double V0; //Får skriva V0 i formlerna sålänge, sen får man ändra så att användaren skriver in värdena
     private double Vinkel; //Denna får man också ändra längre fram så att användaren kan skriva in vinkeln
-    
+        
+    public double luftmotstand; //Detta är luftmotståndet
+    public double c; //Detta är luftmotståndskoefficienten
+    public double p; //Detta är luftens densitet, är 1,2041 kg/m3 i vanlig luft
+    public double a; //Föremålets tvärsnittsarea
    
     private double t = 0; //Är också en variabel som behöver ändras så att användaren skriver in värdet
     private double g; //Är helt enkelt 9.82 m/s, man kan också göra denna så att användaren skriver in en egen gravitation,
     //t.ex om man skulle vilja kasta på månen (?)                        
 
+    
     public void setV0(double V0) {
         this.V0 = V0; // inamta starthastighet
     }
@@ -32,15 +37,31 @@ package Package;
         this.Vinkel = Math.toRadians(Vinkel); //översätts från grader till radianer
     }
 
-    public void setT(double t) {
+    
+        
+   public void setT(double t) {
         this.t = t; //inmata tid
     }
 
     public void setG(double g) {
         this.g = g; //inmata gravitationsacceleration
     }
-
-    public double getT() {
+    
+    public void setC(double c) {
+        this.c = c; //inmata luftmotståndskoefficienten
+    }
+      
+    public void setP(double p) {
+        this.p = p; //inmata luftens densitet
+    }
+    
+     public void setA(double a) {
+        this.a = a; //inmata tvärsnittsarea
+    }
+            
+        
+    
+     public double getT() {
         return t; //ger ut tiden
     }
 
@@ -48,6 +69,21 @@ package Package;
         return g; // ger ut tyngdaccelerationen
     }
     
+     public double getC() {
+        return c; // ger ut luftmotståndskoefficienten
+    }
+    
+     public double getp() {
+        return p; // ger ut luftens densitet
+    }
+     
+     public double getA() {
+        return a; // ger ut Föremålets tvärsnittsarea
+    }    
+        
+        
+        
+        
     public void adderaT(double term) {
         this.t += term; 
     // adderar en viss mängd på den tid som har blivit inmatad, om tid inte är definierat ännu adderas termen med noll
@@ -112,4 +148,15 @@ package Package;
         return (- 2.0 * yHastighet() / -g); //räknar ut den totala kasttiden
     }
     
+    
+    public double luftmotstand(){
+        //Formeln är F = 1/2 * c * p * a * V2
+        
+        //c = luftmotståndskoefficienten
+        //p = luftens densitet
+        //a = föremålets tvärsnittsarea
+       
+        return luftmotstand = (1/2) * c * p * a * (V0 * V0); //räknar ut luftmotståndet 
+        
+    }
 }
