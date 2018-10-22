@@ -1,6 +1,6 @@
 package Package;
     public class FormelMetoder {
-    
+    //lägg till presets
     //Vet ej om double är bättre än int eller tvärtom.. antar att det är double i detta fallet
     //gör det möjligt att spara flera formler i en lista och ta fram dem senare
         
