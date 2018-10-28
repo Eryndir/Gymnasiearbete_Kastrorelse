@@ -180,3 +180,4 @@ package Package;
         return yAcceleration = -g * ((((k)* (sammanlagtHastighet()))/(m))*(yHastighet));//ska räkna ut accelerationen i yled till luftmotståndet
     }
 }
+//kappaomegalul
