@@ -23,6 +23,10 @@ public class GrafRitare {
         }
     }
     
+    public void positionRaknareLuftMotstand(int antalSteg) {
+        
+    }
+    
     public double avrundning(double tal) { //avrundar, antal nollar avgår hur många decimaler som metodenavrundar till
         return (double)Math.round(tal * 1000d)/1000d;
     }

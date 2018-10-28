@@ -38,8 +38,12 @@ public class UserInterface {
         fm.setP(scanner.nextDouble());
         System.out.print("föremålets tvärsnittsarea: ");
         fm.setA(scanner.nextDouble());
+        System.out.print("Massa");
+        fm.setMassa(scanner.nextDouble());
+        System.out.println(fm.sammanlagtHastighet());
         System.out.println(fm.k());
         System.out.println(fm.xHastighet());
         System.out.println(fm.xAcceleration());
+        System.out.println(fm.yAcceleration());
     }
 }

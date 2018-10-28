@@ -166,10 +166,11 @@ package Package;
         return k = (0.5) * c * p * a * Math.pow(V0, 2); //räknar ut luftmotståndet 
         
     }
+    //lägg till x(y acceleration i begynnelse, alltså sammanlagd bytt med begnnelsehastighet
     public double xAcceleration(){
         //formlen är aX = (((0.5) * c * p * a * V2) * V )/ m) * Vx
         
-        return xAcceleration = -((((k)* sammanlagtHastighet())/(m))*(xHastighet));//ska räkna ut accelerationen i xled till luftmotståndet
+        return xAcceleration = -((k()* sammanlagtHastighet())/(m))*xHastighet();//ska räkna ut accelerationen i xled till luftmotståndet
     }
     
      public double yAcceleration(){
