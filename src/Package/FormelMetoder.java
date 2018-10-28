@@ -25,10 +25,13 @@ package Package;
     public double p; //Detta är luftens densitet, är 1,2041 kg/m3 i vanlig luft
     public double a; //Föremålets tvärsnittsarea
    
+    private double m; //massa
     private double t = 0; //Är också en variabel som behöver ändras så att användaren skriver in värdet
     private double g; //Är helt enkelt 9.82 m/s, man kan också göra denna så att användaren skriver in en egen gravitation,
     //t.ex om man skulle vilja kasta på månen (?)                        
-
+    
+    private double xAcceleration;
+    private double yAcceleration;
     
     public void setV0(double V0) {
         this.V0 = V0; // inamta starthastighet
@@ -61,7 +64,7 @@ package Package;
     }
             
     public void setMassa(double massa){
-         this.massa = massa; //inmata massa
+         this.m = massa; //inmata massa
      }
    
     
@@ -86,7 +89,7 @@ package Package;
     }    
         
     public double getMassa(){
-        return massa; // ger ut Föremålets massa
+        return m; // ger ut Föremålets massa
     }    
         
         
@@ -154,7 +157,6 @@ package Package;
         return (- 2.0 * yHastighet() / -g); //räknar ut den totala kasttiden
     }
     
-    
     public double k(){
         //Formeln är F = 1/2 * c * p * a * V2
         //(k = F)
@@ -165,17 +167,16 @@ package Package;
         return k = (0.5) * c * p * a * Math.pow(V0, 2); //räknar ut luftmotståndet 
         
     }
+    //lägg till x(y acceleration i begynnelse, alltså sammanlagd bytt med begnnelsehastighet
     public double xAcceleration(){
         //formlen är aX = (((0.5) * c * p * a * V2) * V )/ m) * Vx
         
-        return xAcceleration = -((((k)* sammanlagtHastighet)/(massa))*(xHastighet));//ska räkna ut accelerationen i xled till luftmotståndet
+        return xAcceleration = -((k()* sammanlagtHastighet())/(m))*xHastighet();//ska räkna ut accelerationen i xled till luftmotståndet
     }
     
      public double yAcceleration(){
         //formlen är ay = -g * (((0.5) * c * p * a * V2) * V )/ m) * Vy
         
-        return yAcceleration = -g * ((((k)* (sammanlagtHastighet))/(massa))*(yHastighet));//ska räkna ut accelerationen i yled till luftmotståndet
+        return yAcceleration = -g * ((((k)* (sammanlagtHastighet()))/(m))*(yHastighet));//ska räkna ut accelerationen i yled till luftmotståndet
     }
-    
-    
-    }
+}

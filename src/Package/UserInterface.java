@@ -30,12 +30,20 @@ public class UserInterface {
     public void startluftmotstand() {
         System.out.print("Hastighet: ");
         fm.setV0(scanner.nextDouble()); //läser nästa double som inmatas i konsolen som vinkeln för hastigheten
+        System.out.print("Vinkel: ");
+        fm.setVinkel(scanner.nextDouble()); //läser nästa double som inmatas i konsolen som vinkeln för formeln
         System.out.print("luftmotståndskoefficienten: ");
         fm.setC(scanner.nextDouble());
         System.out.print("luftens densitet: ");
         fm.setP(scanner.nextDouble());
         System.out.print("föremålets tvärsnittsarea: ");
         fm.setA(scanner.nextDouble());
-        System.out.println(fm.luftmotstand());
+        System.out.print("Massa");
+        fm.setMassa(scanner.nextDouble());
+        System.out.println(fm.sammanlagtHastighet());
+        System.out.println(fm.k());
+        System.out.println(fm.xHastighet());
+        System.out.println(fm.xAcceleration());
+        System.out.println(fm.yAcceleration());
     }
 }
