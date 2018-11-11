@@ -3,6 +3,7 @@ package Package;
 import java.util.Scanner;
 
 public class UserInterface {
+
     Scanner scanner;
     FormelMetoder fm;
 
@@ -12,21 +13,23 @@ public class UserInterface {
         this.scanner = scanner;
         this.fm = fm;
     }
-    
+
     public void start() {
         System.out.print("Hastighet: ");
         fm.setV0(scanner.nextDouble()); //läser nästa double som inmatas i konsolen som vinkeln för hastigheten
+        System.out.print("Start position i y-led: ");
+        fm.setyStartPosition(scanner.nextDouble()); //läser nästa double som inmatas i konsolen som startposition i y-led
         System.out.print("Vinkel: ");
         fm.setVinkel(scanner.nextDouble()); //läser nästa double som inmatas i konsolen som vinkeln för formeln
         System.out.print("Tyngdaccelerationen: ");
         fm.setG(scanner.nextDouble());//läser nästa double som inmatas i konsolen som tyngdaccelerationen
-        System.out.print("Antal steg som visas: "); 
+        System.out.print("Antal steg som visas: ");
         GrafRitare gf = new GrafRitare(fm); //skapar grafritar-objektet
         gf.positionRaknare(scanner.nextInt());
         //läser nästa int som inmatas i konsolen som antal steg som ska räknas 
         //och räknar ut alla steg med de variabler som inmatats
     }
-    
+
     public void startluftmotstand() {
         System.out.print("Hastighet: ");
         fm.setV0(scanner.nextDouble()); //läser nästa double som inmatas i konsolen som vinkeln för hastigheten
