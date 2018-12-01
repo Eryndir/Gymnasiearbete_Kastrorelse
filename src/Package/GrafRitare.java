@@ -5,7 +5,6 @@ public class GrafRitare {
     FormelMetoder fm;
     ArrayList<Integer> xkoordinater;
     ArrayList<Integer> ykoordinater;
-    int steg = 0;
     
     public GrafRitare(FormelMetoder fm) {
         this.fm = fm;
@@ -18,14 +17,14 @@ public class GrafRitare {
         ykoordinater = new ArrayList();
         
         array.add("steg\tx\ty\ttid" + 
-                "\n0\t0.0\t" + this.fm.getyStartPosition() + "\t0\n");
+                "\n0\t0.0\t" + this.fm.getyStartPosition() + "\t0");
         
         xkoordinater.add(0);
         ykoordinater.add(400-(int)this.fm.getyStartPosition());
         
         double x;
         double y;
-        steg = antalSteg;
+        int steg = antalSteg;
         double t = this.fm.totalaTid() / steg; //skillnaden på t för varje steg; delta t
 
         for (int i = 1; i <= steg; i++) { //loop som går runt så många gånger som inmatas i antalSteg

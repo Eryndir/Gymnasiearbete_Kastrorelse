@@ -272,11 +272,6 @@ public class GraphicalInterface extends javax.swing.JFrame {
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             setBackground(Color.white);
-//            g.setColor(Color.BLACK);
-//            g.drawOval(0, 100-Integer.parseInt(jTextFieldYStartPosition.getText())*2, xMax*2, yMax*2);
-
-            int[] xSin = {0};
-            int[] ySin = {0};
 
             if(grafFinns) {
                 int[] xKoord = gf.xkoordinater.stream().mapToInt(i->i).toArray();
@@ -284,8 +279,6 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 Dimension d = new Dimension(xKoord[xKoord.length-1], yKoord[yKoord.length-1]); 
                 this.setPreferredSize(d);
                 g.drawPolyline(xKoord, yKoord, xKoord.length);
-            }
-            if(!grafFinns) {
             }
         }
     }
