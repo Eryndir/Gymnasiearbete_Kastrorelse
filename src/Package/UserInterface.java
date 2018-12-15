@@ -24,7 +24,7 @@ public class UserInterface {
         System.out.print("Tyngdaccelerationen: ");
         fm.setG(scanner.nextDouble());//läser nästa double som inmatas i konsolen som tyngdaccelerationen
         System.out.print("Antal steg som visas: ");
-        GrafRitare gf = new GrafRitare(fm); //skapar grafritar-objektet
+        GrafRitare gf = new GrafRitare(fm, 1); //skapar grafritar-objektet
         gf.positionRaknare(scanner.nextInt());
         //läser nästa int som inmatas i konsolen som antal steg som ska räknas 
         //och räknar ut alla steg med de variabler som inmatats
