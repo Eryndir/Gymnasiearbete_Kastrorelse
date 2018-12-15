@@ -5,9 +5,11 @@ public class GrafRitare {
     FormelMetoder fm;
     ArrayList<Integer> xkoordinater;
     ArrayList<Integer> ykoordinater;
+    double Zoom;
     
-    public GrafRitare(FormelMetoder fm) {
+    public GrafRitare(FormelMetoder fm, double Zoom) {
         this.fm = fm;
+        this.Zoom = Zoom;
     }
 
     // i positionräknaren ska det finnas en metod senare som ritar på en panel prickar vid de olika positioner
@@ -20,7 +22,7 @@ public class GrafRitare {
                 "\n0\t0.0\t" + this.fm.getyStartPosition() + "\t0");
         
         xkoordinater.add(0);
-        ykoordinater.add(400-(int)this.fm.getyStartPosition());
+        ykoordinater.add((int)this.fm.getyStartPosition());
         
         double x;
         double y;
@@ -29,11 +31,11 @@ public class GrafRitare {
 
         for (int i = 1; i <= steg; i++) { //loop som går runt så många gånger som inmatas i antalSteg
             this.fm.adderaT(t); //adderar delta t på den tid som gått
-            x = this.fm.xPosition(); //räknar ut x-positionen vid t
-            y = this.fm.yPosition() + this.fm.getyStartPosition(); //räknar ut y-positionen vid t och adderar startpositionen, annars går kasten från origo till -startpositon, t.ex 0 till -30 istället för 30 till 0
+            x = Zoom * this.fm.xPosition(); //räknar ut x-positionen vid t
+            y = Zoom * (this.fm.yPosition() + this.fm.getyStartPosition()); //räknar ut y-positionen vid t och adderar startpositionen, annars går kasten från origo till -startpositon, t.ex 0 till -30 istället för 30 till 0
             
             xkoordinater.add((int)x);
-            ykoordinater.add(400-(int)y);
+            ykoordinater.add((int)y);
             
             
             array.add("" + avrundning(i) + "\t" + avrundning(x) + "\t" + avrundning(y) + "\t" + avrundning(this.fm.getT()));
