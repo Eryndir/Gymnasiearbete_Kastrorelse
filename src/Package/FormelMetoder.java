@@ -169,6 +169,14 @@ public class FormelMetoder {
         return pqFormalDel1 + pqFormelDel2; //räknar ut den totala kasttiden
     }
 
+    public int yMax() {
+        return (int) ((Math.pow(V0, 2) * Math.pow(Math.sin(Vinkel), 2))/ (2 * g));
+    }
+    
+    public double xMax() {
+        return (int) ((Math.pow(V0, 2) * 2 * Math.sin(Vinkel))/ g);
+    }
+    
     //Här börjar formlerna för Luftmotstånd
     public double k() {
         //Formeln är F = 1/2 * c * p * a * V2
