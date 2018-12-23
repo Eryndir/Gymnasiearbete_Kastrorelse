@@ -17,12 +17,13 @@ public class GrafRitare {
         ArrayList array = new ArrayList();
         xkoordinater = new ArrayList();
         ykoordinater = new ArrayList();
+        int indrag = 50;
         
         array.add("steg\tx\ty\ttid" + 
                 "\n0\t0.0\t" + this.fm.getyStartPosition() + "\t0");
         
-        xkoordinater.add(0);
-        ykoordinater.add((int)this.fm.getyStartPosition());
+        xkoordinater.add(0+indrag);
+        ykoordinater.add((int)this.fm.getyStartPosition()+indrag);
         
         double x;
         double y;
@@ -34,8 +35,8 @@ public class GrafRitare {
             x = Zoom * this.fm.xPosition(); //räknar ut x-positionen vid t
             y = Zoom * (this.fm.yPosition() + this.fm.getyStartPosition()); //räknar ut y-positionen vid t och adderar startpositionen, annars går kasten från origo till -startpositon, t.ex 0 till -30 istället för 30 till 0
             
-            xkoordinater.add((int)x);
-            ykoordinater.add((int)y);
+            xkoordinater.add((int)x+indrag);
+            ykoordinater.add((int)y+indrag);
             
             
             array.add("" + avrundning(i) + "\t" + avrundning(x) + "\t" + avrundning(y) + "\t" + avrundning(this.fm.getT()));

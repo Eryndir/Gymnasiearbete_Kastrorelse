@@ -64,9 +64,9 @@ public class GraphicalInterface extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldHastighet.setText("30");
+        jTextFieldHastighet.setText("100");
 
-        jTextFieldYStartPosition.setText("0");
+        jTextFieldYStartPosition.setText("50");
 
         jTextFieldVinkel.setText("45");
 
@@ -86,7 +86,12 @@ public class GraphicalInterface extends javax.swing.JFrame {
 
         jLabel1.setText("Antal steg som visas");
 
-        jTextFieldAntalSteg.setText("10");
+        jTextFieldAntalSteg.setText("100");
+        jTextFieldAntalSteg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldAntalStegActionPerformed(evt);
+            }
+        });
 
         jPanelGraf2.setPreferredSize(new java.awt.Dimension(800, 400));
 
@@ -159,7 +164,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -204,6 +209,10 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jTextAreaResultat.setText(gf.resultatOutout(gf.positionRaknare(Integer.parseInt(jTextFieldAntalSteg.getText()))));
         repaint();
     }//GEN-LAST:event_jButtonStartActionPerformed
+
+    private void jTextFieldAntalStegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAntalStegActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldAntalStegActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -265,17 +274,30 @@ public class GraphicalInterface extends javax.swing.JFrame {
         
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            setBackground(Color.white);
+            setBackground(Color.gray);
             Graphics2D g2d = (Graphics2D) g;
             AffineTransform old = g2d.getTransform();
             g2d.translate(0, getHeight() - 1);
             g2d.scale(1, -1);
-
+            
+            int kappa = 50;
+            for (int i = 0; i < 1000; i++) {
+                g.drawLine(kappa, 40, kappa, 500);
+                kappa = kappa + 50;
+            }
+            kappa = 50;
+            for (int i = 0; i < 1000; i++) {
+                g.drawLine(40, kappa , 5000, kappa);
+                kappa = kappa + 50;
+            }
+            
 
             if(grafFinns) {
+                g.setColor(Color.white);
                 int[] xKoord = gf.xkoordinater.stream().mapToInt(i->i).toArray();
                 int[] yKoord = gf.ykoordinater.stream().mapToInt(i->i).toArray();
-                Dimension d = new Dimension((int)(gf.fm.xMax()*Zoom), (int)(gf.fm.yMax()*Zoom)); 
+                
+                Dimension d = new Dimension((int)(gf.xkoordinater.get(gf.xkoordinater.size()-1)*Zoom)+50, (int)(gf.fm.yMax()*Zoom)+50); 
                 this.setPreferredSize(d);
                 g.drawPolyline(xKoord, yKoord, xKoord.length);
             }

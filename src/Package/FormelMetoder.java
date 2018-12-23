@@ -170,7 +170,7 @@ public class FormelMetoder {
     }
 
     public double yMax() {
-        return (int) ((Math.pow(V0, 2) * Math.pow(Math.sin(Vinkel), 2))/ (2 * g));
+        return (int) ((Math.pow(V0, 2) * Math.pow(Math.sin(Vinkel), 2))/ (2 * g)) + yStartPosition;
     }
     
     public double xMax() {
