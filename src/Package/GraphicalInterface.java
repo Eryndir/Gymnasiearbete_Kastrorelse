@@ -18,10 +18,13 @@ public class GraphicalInterface extends javax.swing.JFrame {
     int test = 0;
     double Zoom;
     Boolean grafFinns = false;
+    Boolean grafFinnsLuft = false;
     
     Scanner scanner;
     FormelMetoder fm;
+    FormelMetoderLuft fmLuft;
     GrafRitare gf;
+    GrafRitare gfLuft;
     public GraphicalInterface() {
         initComponents();
     }
@@ -53,6 +56,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jPanelGraf2 = new MyPanel();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldZoom = new javax.swing.JTextField();
+        jCheckBoxLuft = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1300, 729));
@@ -112,6 +116,8 @@ public class GraphicalInterface extends javax.swing.JFrame {
 
         jTextFieldZoom.setText("1");
 
+        jCheckBoxLuft.setText("Luftmotstånd");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,7 +148,9 @@ public class GraphicalInterface extends javax.swing.JFrame {
                     .addComponent(jTextFieldTyngdAcceleration, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                     .addComponent(jTextFieldZoom))
                 .addGap(66, 66, 66)
-                .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBoxLuft))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
@@ -178,18 +186,21 @@ public class GraphicalInterface extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldYStartPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)))
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldAntalSteg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5)
+                            .addComponent(jTextFieldZoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonStart)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextFieldTyngdAcceleration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldAntalSteg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextFieldZoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldTyngdAcceleration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCheckBoxLuft))
+                        .addGap(59, 59, 59))))
         );
 
         pack();
@@ -202,10 +213,22 @@ public class GraphicalInterface extends javax.swing.JFrame {
         fm.setVinkel(Double.parseDouble(jTextFieldVinkel.getText()));
         fm.setG(Double.parseDouble(jTextFieldTyngdAcceleration.getText()));
         Zoom = Double.parseDouble(jTextFieldZoom.getText());
-        
-        
         gf = new GrafRitare(fm, Zoom);
         grafFinns = true;
+        grafFinnsLuft = false;
+        if(jCheckBoxLuft.isSelected()) {
+            fmLuft = new FormelMetoderLuft();
+            fmLuft.setV0(Double.parseDouble(jTextFieldHastighet.getText()));
+            fmLuft.setyStartPosition(Double.parseDouble(jTextFieldYStartPosition.getText()));
+            fmLuft.setVinkel(Double.parseDouble(jTextFieldVinkel.getText()));
+            fmLuft.setG(Double.parseDouble(jTextFieldTyngdAcceleration.getText()));
+            Zoom = Double.parseDouble(jTextFieldZoom.getText());
+            
+            gfLuft = new GrafRitare(fmLuft, Zoom);
+            grafFinnsLuft = true;
+        }
+        
+        
         jTextAreaResultat.setText(gf.resultatOutout(gf.positionRaknare(Integer.parseInt(jTextFieldAntalSteg.getText()))));
         repaint();
     }//GEN-LAST:event_jButtonStartActionPerformed
@@ -248,6 +271,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonStart;
+    private javax.swing.JCheckBox jCheckBoxLuft;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -276,19 +300,32 @@ public class GraphicalInterface extends javax.swing.JFrame {
             super.paintComponent(g);
             setBackground(Color.gray);
             Graphics2D g2d = (Graphics2D) g;
+            int rutnat = 0;
+            
+            for (int i = 0; i < 50000; i++) { //vertikala siffror
+                g2d.drawString(""+rutnat, 5, jPanelGraf2.getHeight()-(rutnat+50));
+                rutnat += 50;
+            }
+            rutnat = 0;
+            for (int i = 0; i < 50000; i++) { //horizontela siffror
+                g2d.drawString(""+rutnat, rutnat+45,  jPanelGraf2.getHeight()-20);
+                rutnat += 50;
+            }
+            
             AffineTransform old = g2d.getTransform();
             g2d.translate(0, getHeight() - 1);
             g2d.scale(1, -1);
             
-            int kappa = 50;
-            for (int i = 0; i < 1000; i++) {
-                g.drawLine(kappa, 40, kappa, 500);
-                kappa = kappa + 50;
+            rutnat = 50; //vertikala streck
+            for (int i = 0; i < 50000; i++) {
+                g.drawLine(rutnat, 40, rutnat, jPanelGraf2.getHeight());
+                rutnat = rutnat + 50;
             }
-            kappa = 50;
-            for (int i = 0; i < 1000; i++) {
-                g.drawLine(40, kappa , 5000, kappa);
-                kappa = kappa + 50;
+            
+            rutnat = 50; //horizontela streck
+            for (int i = 0; i < 50000; i++) {
+                g.drawLine(40, rutnat , jPanelGraf2.getWidth(), rutnat);
+                rutnat = rutnat + 50;
             }
             
 
@@ -297,9 +334,14 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 int[] xKoord = gf.xkoordinater.stream().mapToInt(i->i).toArray();
                 int[] yKoord = gf.ykoordinater.stream().mapToInt(i->i).toArray();
                 
-                Dimension d = new Dimension((int)(gf.xkoordinater.get(gf.xkoordinater.size()-1)*Zoom)+50, (int)(gf.fm.yMax()*Zoom)+50); 
+                Dimension d = new Dimension((int)(gf.xkoordinater.get(gf.xkoordinater.size()-1)*Zoom)+100, (int)(gf.fm.yMax()*Zoom)+100); 
                 this.setPreferredSize(d);
                 g.drawPolyline(xKoord, yKoord, xKoord.length);
+            }
+            
+            if(grafFinnsLuft) {
+                g.setColor(Color.red);
+                g.drawString("FUCK", 50, 50);
             }
             
             g2d.setTransform(old);
