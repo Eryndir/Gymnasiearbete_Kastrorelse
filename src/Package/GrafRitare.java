@@ -31,7 +31,7 @@ public class GrafRitare {
                 "\n0\t0.0\t" + this.fm.getyStartPosition() + "\t0");
         
         xkoordinater.add(0+indrag);
-        ykoordinater.add((int)this.fm.getyStartPosition()+indrag);
+        ykoordinater.add((int)(this.fm.getyStartPosition()*Zoom)+indrag);
         
         double x;
         double y;
@@ -47,7 +47,7 @@ public class GrafRitare {
             ykoordinater.add((int)y+indrag);
             
             
-            array.add("" + avrundning(i) + "\t" + avrundning(x) + "\t" + avrundning(y) + "\t" + avrundning(this.fm.getT()));
+            array.add("" + avrundning(i)*Zoom + "\t" + avrundning(x) + "\t" + avrundning(y) + "\t" + avrundning(this.fm.getT()*Zoom));
         }
         return array;
     }
@@ -94,6 +94,7 @@ public class GrafRitare {
     }
 
     public double avrundning(double tal) { //avrundar, antal nollar avgår hur många decimaler som metodenavrundar till
+        tal = tal/Zoom;
         return (double) Math.round(tal * 1000d) / 1000d;
     }
 }
