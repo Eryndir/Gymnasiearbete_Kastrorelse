@@ -229,29 +229,36 @@ public class GraphicalInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
-        fm = new FormelMetoder();
-        fm.setV0(Double.parseDouble(jTextFieldHastighet.getText()));
-        fm.setyStartPosition(Double.parseDouble(jTextFieldYStartPosition.getText()));
-        fm.setVinkel(Double.parseDouble(jTextFieldVinkel.getText()));
-        fm.setG(Double.parseDouble(jTextFieldTyngdAcceleration.getText()));
-        Zoom = Double.parseDouble(jTextFieldZoom.getText());
-        rutnatStorlek = Integer.parseInt(jTextFieldRutnat.getText());
-        gf = new GrafRitare(fm, Zoom);
-        grafFinns = true;
-        grafFinnsLuft = false;
+        fm = new FormelMetoder(); //skapar en graf och alla formler kan användas och variabler kan inmatas
+        
+        fm.setV0(Double.parseDouble(jTextFieldHastighet.getText())); //begynnelsehastighet bestämms
+        fm.setyStartPosition(Double.parseDouble(jTextFieldYStartPosition.getText())); //y-startposition bestämms
+        fm.setVinkel(Double.parseDouble(jTextFieldVinkel.getText())); //vinkeln bestämms
+        fm.setG(Double.parseDouble(jTextFieldTyngdAcceleration.getText())); //Tyngdacceleration bestämms
+        
+        Zoom = Double.parseDouble(jTextFieldZoom.getText()); //inzoomningen bestämms
+        rutnatStorlek = Integer.parseInt(jTextFieldRutnat.getText()); //storlek på rutnät bestämms
+        
+        gf = new GrafRitare(fm, Zoom); //grafritaren skapas så att grafens värden kan räknas ut och sedan ritas ut
+        
+        grafFinns = true; //indikerar att en graf finns och kan ritas
+        
         if(jCheckBoxLuft.isSelected()) {
-            fmLuft = new FormelMetoderLuft();
-            fmLuft.setV0(Double.parseDouble(jTextFieldHastighet.getText()));
-            fmLuft.setyStartPosition(Double.parseDouble(jTextFieldYStartPosition.getText()));
-            fmLuft.setVinkel(Double.parseDouble(jTextFieldVinkel.getText()));
-            fmLuft.setG(Double.parseDouble(jTextFieldTyngdAcceleration.getText()));
-            Zoom = Double.parseDouble(jTextFieldZoom.getText());
+            fmLuft = new FormelMetoderLuft(); ////skapar en graf anpassad för luftmotstånd och alla formler kan användas och variabler kan inmatas
             
-            gfLuft = new GrafRitare(fmLuft, Zoom);
-            grafFinnsLuft = true;
+            fmLuft.setV0(Double.parseDouble(jTextFieldHastighet.getText())); //begynnelsehastighet bestämms
+            fmLuft.setyStartPosition(Double.parseDouble(jTextFieldYStartPosition.getText()));//y-startposition bestämms
+            fmLuft.setVinkel(Double.parseDouble(jTextFieldVinkel.getText()));//vinkeln bestämms
+            fmLuft.setG(Double.parseDouble(jTextFieldTyngdAcceleration.getText()));//Tyngdacceleration bestämms
+            
+            Zoom = Double.parseDouble(jTextFieldZoom.getText());//inzoomningen bestämms
+            
+            gfLuft = new GrafRitare(fmLuft, Zoom);//grafritaren anpassad för luftmotstånd skapas så att grafens värden kan räknas ut och sedan ritas ut
+            
+            grafFinnsLuft = true;//indikerar att en graf anpassad för luftmotstånd finns och kan ritas
         }
         
-        
+        //skriver in resultaten av grafen in i listan så att användaren kan läsa värdena
         jTextAreaResultat.setText(gf.resultatOutout(gf.positionRaknare(Integer.parseInt(jTextFieldAntalSteg.getText()))));
         repaint();
     }//GEN-LAST:event_jButtonStartActionPerformed
@@ -321,7 +328,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private class MyPanel extends JPanel {
-        
+        //panelen som grafen ritas i
         public MyPanel() {
         }
         
@@ -332,12 +339,14 @@ public class GraphicalInterface extends javax.swing.JFrame {
             int rutnat = 0;
             int siffror = 0;
             
+            //om det finns en graf ritar programmet siffor anpassat till rutnätets storlek för avläsning av grafen
             if(grafFinns) {
                 for (int i = 0; i < 50000; i++) { //vertikala siffror
                     g2d.drawString("" + siffror, 5, jPanelGraf2.getHeight() - ((rutnat * (int) Zoom) + 50));
                     rutnat += rutnatStorlek;
                     siffror += rutnatStorlek;
                 }
+                
                 rutnat = 0;
                 siffror = 0;
                 for (int i = 0; i < 50000; i++) { //horizontela siffror
@@ -348,36 +357,37 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 }
             }
             
-            
+            //Dessa tre rader gör att man ritar från det nedre vänstra hörn istället från det övre vänstra hörn, vilket underlättar ritning av graf
             AffineTransform old = g2d.getTransform();
             g2d.translate(0, getHeight() - 1);
             g2d.scale(1, -1);
             
-            rutnat = rutnatStorlek *(int)Zoom; //vertikala streck
-            rutnat += 50;
+            rutnat = (rutnatStorlek *(int)Zoom)+50; //vertikala streck
             g.drawLine(50, 40, 50, jPanelGraf2.getHeight());
             for (int i = 0; i < 50000; i++) {
                 g.drawLine(rutnat, 40, rutnat, jPanelGraf2.getHeight());
                 rutnat += rutnatStorlek * (int)Zoom;
             }
             
-            rutnat = rutnatStorlek*(int)Zoom; //horizontela streck
-            rutnat += 50;
+            rutnat = (rutnatStorlek*(int)Zoom)+50; //horizontela streck
             g.drawLine(40, 50, jPanelGraf2.getWidth(), 50);
             for (int i = 0; i < 50000; i++) {
                 g.drawLine(40, rutnat , jPanelGraf2.getWidth(), rutnat);
                 rutnat += rutnatStorlek * (int)Zoom;
             }
             
-
+            
+            //om grafen finns börjar programmet att rita grafen
             if(grafFinns) {
                 g.setColor(Color.white);
+                //listorna i grafritaren översätts till vanliga arrays, då g.drawPolyline endast tar emot arrays, inte arraylists
                 int[] xKoord = gf.xkoordinater.stream().mapToInt(i->i).toArray();
                 int[] yKoord = gf.ykoordinater.stream().mapToInt(i->i).toArray();
                 
+                //storlek på rutan anpassas enligt grafen
                 Dimension d = new Dimension((int)(gf.xkoordinater.get(gf.xkoordinater.size()-1))+100, (int)(gf.fm.yMax()*Zoom)+100); 
                 this.setPreferredSize(d);
-                g.drawPolyline(xKoord, yKoord, xKoord.length);
+                g.drawPolyline(xKoord, yKoord, xKoord.length); //ritar grafen
             }
             
             if(grafFinnsLuft) {

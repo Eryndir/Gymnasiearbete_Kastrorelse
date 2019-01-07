@@ -22,16 +22,18 @@ public class GrafRitare {
 
     // i positionräknaren ska det finnas en metod senare som ritar på en panel prickar vid de olika positioner
     public ArrayList positionRaknare(int antalSteg) { //räknar ut alla positioner vid alla steg som inmatas
-        ArrayList array = new ArrayList();
-        xkoordinater = new ArrayList();
-        ykoordinater = new ArrayList();
-        int indrag = 50;
         
+        ArrayList array = new ArrayList(); //en lista där alla värden sparas
+        xkoordinater = new ArrayList(); //en lista med endast xkoordinater för att rita med
+        ykoordinater = new ArrayList(); // en lista med endast ykoordinater för att rita med
+        int indrag = 50; //hur långt från kanten av rutan grafen är
+        
+        //start värdena av kasten läggs in i array listan
         array.add("steg\tx\ty\ttid" + 
                 "\n0\t0.0\t" + this.fm.getyStartPosition() + "\t0");
         
-        xkoordinater.add(0+indrag);
-        ykoordinater.add((int)(this.fm.getyStartPosition()*Zoom)+indrag);
+        xkoordinater.add(0+indrag); //xkoordinaters startvärde när de ska ritas; börjar på 0, men ska ritas 50 från kanten
+        ykoordinater.add((int)(this.fm.getyStartPosition()*Zoom)+indrag); //indraget är densamma som ovan
         
         double x;
         double y;
@@ -43,23 +45,25 @@ public class GrafRitare {
             x = Zoom * this.fm.xPosition(); //räknar ut x-positionen vid t
             y = Zoom * (this.fm.yPosition() + this.fm.getyStartPosition()); //räknar ut y-positionen vid t och adderar startpositionen, annars går kasten från origo till -startpositon, t.ex 0 till -30 istället för 30 till 0
             
-            xkoordinater.add((int)x+indrag);
-            ykoordinater.add((int)y+indrag);
+            xkoordinater.add((int)x+indrag); //anpassar grafen till ritning
+            ykoordinater.add((int)y+indrag); //samma som ovan
             
-            
+            //avrumdar värdena och läggar in dem i arraylistan som ska visas up för användaren
             array.add("" + avrundning(i)*Zoom + "\t" + avrundning(x) + "\t" + avrundning(y) + "\t" + avrundning(this.fm.getT()*Zoom));
         }
         return array;
     }
     
-    public String resultatOutout(ArrayList resultat) {
+    //metod som läser attaylistan och översätter den för JList som användaren kan läsa
+    public String resultatOutout(ArrayList resultat) { 
         String resultatLista = "";
         for (Object string : resultat) {
             resultatLista += string + "\n";
         }
         return resultatLista;
     }
-
+    
+    //Luftmotsåtnd inte klart ännu
     public ArrayList positionRaknareLuftMotstand(int antalSteg) {
         ArrayList arrayLuft = new ArrayList();
         xkoordinaterLuft = new ArrayList();

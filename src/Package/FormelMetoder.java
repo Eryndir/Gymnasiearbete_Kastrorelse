@@ -75,7 +75,7 @@ public class FormelMetoder {
         this.m = massa; //inmata massa
     }
 
-    public void setyStartPosition(double yStartPosition) {
+    public void setyStartPosition(double yStartPosition) { //sätter bärdet på y-start positionen
         this.yStartPosition = yStartPosition;
     }
 
@@ -103,7 +103,7 @@ public class FormelMetoder {
         return m; // ger ut Föremålets massa
     }
 
-    public double getyStartPosition() {
+    public double getyStartPosition() { //ger ut start positionen i y-led
         return yStartPosition;
     }
 
@@ -169,11 +169,11 @@ public class FormelMetoder {
         return pqFormalDel1 + pqFormelDel2; //räknar ut den totala kasttiden
     }
 
-    public double yMax() {
+    public double yMax() { //räknar ut max värdet på y-koordinaterna
         return (int) ((Math.pow(V0, 2) * Math.pow(Math.sin(Vinkel), 2))/ (2 * g)) + yStartPosition;
     }
     
-    public double xMax() {
+    public double xMax() { //räknar ut max värdet på x-koordinaterna
         return (int) ((Math.pow(V0, 2) * Math.sin(2*Vinkel))/ g);
     }
     
