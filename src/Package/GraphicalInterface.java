@@ -28,6 +28,15 @@ public class GraphicalInterface extends javax.swing.JFrame {
     GrafRitare gfLuft;
     public GraphicalInterface() {
         initComponents();
+        jTextFieldMassa.setVisible(false);
+        jTextFieldArea.setVisible(false);
+        jTextFieldDensitet.setVisible(false);
+        jTextFieldKoefficienten.setVisible(false);
+        
+        jLabelMassa.setVisible(false);
+        jLabelArea.setVisible(false);
+        jLabelDensitet.setVisible(false);
+        jLabelKoefficienten.setVisible(false);
     }
 
     /**
@@ -51,7 +60,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldAntalSteg = new javax.swing.JTextField();
+        jTextFieldDeltaT = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanelGraf2 = new MyPanel();
@@ -60,9 +69,23 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jCheckBoxLuft = new javax.swing.JCheckBox();
         jTextFieldRutnat = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextAreaResultatLuft = new javax.swing.JTextArea();
+        jLabelArea = new javax.swing.JLabel();
+        jLabelMassa = new javax.swing.JLabel();
+        jLabelKoefficienten = new javax.swing.JLabel();
+        jLabelDensitet = new javax.swing.JLabel();
+        jTextFieldMassa = new javax.swing.JTextField();
+        jTextFieldArea = new javax.swing.JTextField();
+        jTextFieldDensitet = new javax.swing.JTextField();
+        jTextFieldKoefficienten = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1300, 729));
+        setPreferredSize(new java.awt.Dimension(1668, 780));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonStart.setText("Start");
         jButtonStart.addActionListener(new java.awt.event.ActionListener() {
@@ -70,35 +93,54 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 jButtonStartActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 80, -1));
 
-        jTextFieldHastighet.setText("15");
+        jTextFieldHastighet.setText("25");
+        jTextFieldHastighet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldHastighetActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldHastighet, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 580, 80, -1));
 
         jTextFieldYStartPosition.setText("0");
+        getContentPane().add(jTextFieldYStartPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 580, 80, -1));
 
-        jTextFieldVinkel.setText("45");
+        jTextFieldVinkel.setText("60");
+        getContentPane().add(jTextFieldVinkel, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 540, 80, -1));
 
         jTextFieldTyngdAcceleration.setText("9.82");
+        getContentPane().add(jTextFieldTyngdAcceleration, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 540, 80, -1));
 
         jTextAreaResultat.setColumns(20);
         jTextAreaResultat.setRows(5);
         jScrollPane1.setViewportView(jTextAreaResultat);
 
-        jLabelHastighet.setText("Hastighet");
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1004, 24, 320, 489));
 
-        jLabel2.setText("Y-led start");
+        jLabelHastighet.setText("Hastighet (meter/sekund)");
+        getContentPane().add(jLabelHastighet, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 580, -1, -1));
 
-        jLabel3.setText("Vinkel");
+        jLabel2.setText("Y-led start (meter)");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 580, -1, -1));
 
-        jLabel4.setText("Tyngdacceleration");
+        jLabel3.setText("Vinkel (grader)");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 540, -1, -1));
 
-        jLabel1.setText("Antal steg som visas");
+        jLabel4.setText("Tyngdacceleration (meter/sekund²)");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 540, -1, -1));
 
-        jTextFieldAntalSteg.setText("100");
-        jTextFieldAntalSteg.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("delta Tid");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 670, -1, -1));
+
+        jTextFieldDeltaT.setText("0.01");
+        jTextFieldDeltaT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldAntalStegActionPerformed(evt);
+                jTextFieldDeltaTActionPerformed(evt);
             }
         });
+        getContentPane().add(jTextFieldDeltaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 670, 80, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 34, -1, -1));
 
         jPanelGraf2.setPreferredSize(new java.awt.Dimension(800, 400));
 
@@ -115,115 +157,68 @@ public class GraphicalInterface extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jPanelGraf2);
 
-        jLabel5.setText("Zoom");
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 24, 893, 489));
 
-        jTextFieldZoom.setText("2");
+        jLabel5.setText("Zoom");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 630, -1, -1));
+
+        jTextFieldZoom.setText("10");
         jTextFieldZoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldZoomActionPerformed(evt);
             }
         });
+        getContentPane().add(jTextFieldZoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 630, 80, -1));
 
         jCheckBoxLuft.setText("Luftmotstånd");
+        jCheckBoxLuft.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxLuftActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jCheckBoxLuft, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 620, -1, -1));
 
-        jTextFieldRutnat.setText("50");
+        jTextFieldRutnat.setText("10");
+        getContentPane().add(jTextFieldRutnat, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 590, 80, -1));
 
         jLabel6.setText("Rutnat storlek");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabelHastighet))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextFieldHastighet)
-                            .addComponent(jTextFieldYStartPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(30, 30, 30)
-                        .addComponent(jTextFieldAntalSteg, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldVinkel)
-                    .addComponent(jTextFieldTyngdAcceleration, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                    .addComponent(jTextFieldZoom))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBoxLuft)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldRutnat, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 893, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(246, 246, 246))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextFieldHastighet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelHastighet))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(jTextFieldVinkel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldYStartPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextFieldTyngdAcceleration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldAntalSteg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextFieldZoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonStart)
-                        .addGap(12, 12, 12)
-                        .addComponent(jCheckBoxLuft)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldRutnat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(29, 29, 29))))
-        );
+        jTextAreaResultatLuft.setColumns(20);
+        jTextAreaResultatLuft.setRows(5);
+        jScrollPane4.setViewportView(jTextAreaResultatLuft);
+
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1336, 24, 320, 489));
+
+        jLabelArea.setText("Tvärsnitsarea (meter²)");
+        getContentPane().add(jLabelArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 670, -1, -1));
+
+        jLabelMassa.setText("Massa (Kilogram)");
+        getContentPane().add(jLabelMassa, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 670, -1, -1));
+
+        jLabelKoefficienten.setText("luftmotståndskoefficienten");
+        getContentPane().add(jLabelKoefficienten, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 710, -1, -1));
+
+        jLabelDensitet.setText("Luft densitet (kilogram/meter³)");
+        getContentPane().add(jLabelDensitet, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 710, -1, -1));
+
+        jTextFieldMassa.setText("0.00258");
+        getContentPane().add(jTextFieldMassa, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 670, 80, -1));
+
+        jTextFieldArea.setText("0.0011461");
+        getContentPane().add(jTextFieldArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 670, 80, -1));
+
+        jTextFieldDensitet.setText("1.2041");
+        getContentPane().add(jTextFieldDensitet, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 710, 80, -1));
+
+        jTextFieldKoefficienten.setText("0.45");
+        getContentPane().add(jTextFieldKoefficienten, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 710, 80, -1));
+
+        jLabel7.setText("Formel utan luftmotstånd");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 530, -1, -1));
+
+        jLabel8.setText("Formel med luftmotstånd");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 530, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -259,17 +254,49 @@ public class GraphicalInterface extends javax.swing.JFrame {
         }
         
         //skriver in resultaten av grafen in i listan så att användaren kan läsa värdena
-        jTextAreaResultat.setText(gf.resultatOutout(gf.positionRaknare(Integer.parseInt(jTextFieldAntalSteg.getText()))));
+        jTextAreaResultat.setText(gf.resultatOutout(gf.positionRaknare(Double.parseDouble(jTextFieldDeltaT.getText()))));
+        if(grafFinnsLuft) {
+            jTextAreaResultatLuft.setText(gfLuft.resultatOutout(gfLuft.positionRaknareLuftMotstand(Double.parseDouble(jTextFieldDeltaT.getText()))));
+        }
         repaint();
     }//GEN-LAST:event_jButtonStartActionPerformed
 
-    private void jTextFieldAntalStegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAntalStegActionPerformed
+    private void jTextFieldDeltaTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDeltaTActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldAntalStegActionPerformed
+    }//GEN-LAST:event_jTextFieldDeltaTActionPerformed
 
     private void jTextFieldZoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldZoomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldZoomActionPerformed
+
+    private void jTextFieldHastighetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldHastighetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldHastighetActionPerformed
+
+    private void jCheckBoxLuftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxLuftActionPerformed
+        if(jCheckBoxLuft.isSelected()) {
+            jTextFieldMassa.setVisible(true);
+            jTextFieldArea.setVisible(true);
+            jTextFieldDensitet.setVisible(true);
+            jTextFieldKoefficienten.setVisible(true);
+
+            jLabelMassa.setVisible(true);
+            jLabelArea.setVisible(true);
+            jLabelDensitet.setVisible(true);
+            jLabelKoefficienten.setVisible(true);
+        }
+        else {
+            jTextFieldMassa.setVisible(false);
+            jTextFieldArea.setVisible(false);
+            jTextFieldDensitet.setVisible(false);
+            jTextFieldKoefficienten.setVisible(false);
+
+            jLabelMassa.setVisible(false);
+            jLabelArea.setVisible(false);
+            jLabelDensitet.setVisible(false);
+            jLabelKoefficienten.setVisible(false);
+        }
+    }//GEN-LAST:event_jCheckBoxLuftActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -312,14 +339,26 @@ public class GraphicalInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelArea;
+    private javax.swing.JLabel jLabelDensitet;
     private javax.swing.JLabel jLabelHastighet;
+    private javax.swing.JLabel jLabelKoefficienten;
+    private javax.swing.JLabel jLabelMassa;
     private javax.swing.JPanel jPanelGraf2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextAreaResultat;
-    private javax.swing.JTextField jTextFieldAntalSteg;
+    private javax.swing.JTextArea jTextAreaResultatLuft;
+    private javax.swing.JTextField jTextFieldArea;
+    private javax.swing.JTextField jTextFieldDeltaT;
+    private javax.swing.JTextField jTextFieldDensitet;
     private javax.swing.JTextField jTextFieldHastighet;
+    private javax.swing.JTextField jTextFieldKoefficienten;
+    private javax.swing.JTextField jTextFieldMassa;
     private javax.swing.JTextField jTextFieldRutnat;
     private javax.swing.JTextField jTextFieldTyngdAcceleration;
     private javax.swing.JTextField jTextFieldVinkel;
@@ -392,7 +431,9 @@ public class GraphicalInterface extends javax.swing.JFrame {
             
             if(grafFinnsLuft) {
                 g.setColor(Color.red);
-                g.drawString("FUCK", 50, 50);
+                int[] xKoordLuft = gfLuft.xkoordinaterLuft.stream().mapToInt(i->i).toArray();
+                int[] yKoordLuft = gfLuft.ykoordinaterLuft.stream().mapToInt(i->i).toArray();
+                g.drawPolyline(xKoordLuft, yKoordLuft, xKoordLuft.length);
             }
             
             g2d.setTransform(old);

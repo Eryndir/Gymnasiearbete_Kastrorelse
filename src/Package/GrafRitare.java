@@ -21,7 +21,7 @@ public class GrafRitare {
     }
 
     // i positionräknaren ska det finnas en metod senare som ritar på en panel prickar vid de olika positioner
-    public ArrayList positionRaknare(int antalSteg) { //räknar ut alla positioner vid alla steg som inmatas
+    public ArrayList positionRaknare(double deltaT) { //räknar ut alla positioner vid alla steg som inmatas
         
         ArrayList array = new ArrayList(); //en lista där alla värden sparas
         xkoordinater = new ArrayList(); //en lista med endast xkoordinater för att rita med
@@ -35,12 +35,11 @@ public class GrafRitare {
         xkoordinater.add(0+indrag); //xkoordinaters startvärde när de ska ritas; börjar på 0, men ska ritas 50 från kanten
         ykoordinater.add((int)(this.fm.getyStartPosition()*Zoom)+indrag); //indraget är densamma som ovan
         
-        double x;
-        double y;
-        int steg = antalSteg;
-        double t = this.fm.totalaTid() / steg; //skillnaden på t för varje steg; delta t
-
-        for (int i = 1; i <= steg; i++) { //loop som går runt så många gånger som inmatas i antalSteg
+        double x = 0;
+        double y = 0;
+        double t = deltaT; //skillnaden på t för varje steg; delta t
+        int steg = 0;
+        while(y>=0) {
             this.fm.adderaT(t); //adderar delta t på den tid som gått
             x = Zoom * this.fm.xPosition(); //räknar ut x-positionen vid t
             y = Zoom * (this.fm.yPosition() + this.fm.getyStartPosition()); //räknar ut y-positionen vid t och adderar startpositionen, annars går kasten från origo till -startpositon, t.ex 0 till -30 istället för 30 till 0
@@ -49,7 +48,7 @@ public class GrafRitare {
             ykoordinater.add((int)y+indrag); //samma som ovan
             
             //avrumdar värdena och läggar in dem i arraylistan som ska visas up för användaren
-            array.add("" + avrundning(i)*Zoom + "\t" + avrundning(x) + "\t" + avrundning(y) + "\t" + avrundning(this.fm.getT()*Zoom));
+            array.add("" + ++steg + "\t" + avrundning(x) + "\t" + avrundning(y) + "\t" + avrundning(this.fm.getT()*Zoom));
         }
         return array;
     }
@@ -64,35 +63,54 @@ public class GrafRitare {
     }
     
     //Luftmotsåtnd inte klart ännu
-    public ArrayList positionRaknareLuftMotstand(int antalSteg) {
+    public ArrayList positionRaknareLuftMotstand(double deltaT) {
         ArrayList arrayLuft = new ArrayList();
         xkoordinaterLuft = new ArrayList();
         ykoordinaterLuft = new ArrayList();
         int indrag = 50;
-        
+        fmLuft.setMassa(0.00258);
+        fmLuft.setA(Math.PI*Math.pow(0.0191, 2));
+        fmLuft.setC(0.45);
+        fmLuft.setP(1.2041);
         arrayLuft.add("steg\tx\ty\ttid" + 
                 "\n0\t0.0\t" + this.fmLuft.getyStartPosition() + "\t0");
         
-        xkoordinater.add(0+indrag);
-        ykoordinater.add((int)this.fmLuft.getyStartPosition()+indrag);
+        xkoordinaterLuft.add(0+indrag);
+        ykoordinaterLuft.add((int)this.fmLuft.getyStartPosition()+indrag);
         
         double x = 0;
-        double y = this.fmLuft.getyStartPosition();
+        double y = 0;
+        double vx = this.fmLuft.xStartHastighet();
+        double vy = this.fmLuft.yStartHastighet();
+        double ax = this.fmLuft.xAcceleration(this.fmLuft.getV0(),this.fmLuft.xStartHastighet());
+        double ay = this.fmLuft.yAcceleration(this.fmLuft.getV0(), this.fmLuft.yStartHastighet());
         
-        int steg = antalSteg;
-        double t = this.fmLuft.totalaTid() / steg; //skillnaden på t för varje steg; delta t
-
-        for (int i = 1; i <= steg; i++) { //loop som går runt så många gånger som inmatas i antalSteg
+        double totalaV = 0;
+        
+        double t = deltaT; //skillnaden på t för varje steg; delta t
+        int steg = 0;
+        
+        while(y>=0) {
             this.fmLuft.adderaT(t); //adderar delta t på den tid som gått
+
+            x = this.fmLuft.xPositionLuft(x, vx, t); //räknar ut x-positionen vid t
+            y = (this.fmLuft.yPositionLuft(y, vy, t) + this.fmLuft.getyStartPosition()); //räknar ut y-positionen vid t och adderar startpositionen, annars går kasten från origo till -startpositon, t.ex 0 till -30 istället för 30 till 0
             
-            x = Zoom * this.fmLuft.xPositionLuft(x, x, t);
-            y = Zoom * this.fmLuft.yPositionLuft(y, y, t);
+            vx = this.fmLuft.xHastighetLuft(vx, ax, t);
+            vy = this.fmLuft.yHastighetLuft(vy, ay, t);
             
-            xkoordinater.add((int)x+indrag);
-            ykoordinater.add((int)y+indrag);
+            totalaV = this.fmLuft.sammanlagtHastighet(vx, vy);
             
+            ax = this.fmLuft.xAcceleration(totalaV, vx);
+            ay = this.fmLuft.yAcceleration(totalaV, vy);
             
-            arrayLuft.add("" + avrundning(i) + "\t" + avrundning(x) + "\t" + avrundning(y) + "\t" + avrundning(this.fm.getT()));
+            double xkoord = (x*Zoom)+indrag;
+            double ykoord = (y*Zoom)+indrag;
+            xkoordinaterLuft.add((int)xkoord); //anpassar grafen till ritning
+            ykoordinaterLuft.add((int)ykoord); //samma som ovan
+            
+            //avrumdar värdena och läggar in dem i arraylistan som ska visas up för användaren
+            arrayLuft.add("" + ++steg + "\t" + avrundningLuft(x) + "\t" + avrundningLuft(y) + "\t" + avrundning(this.fmLuft.getT()*Zoom));
         }
         return arrayLuft;
     }
@@ -100,5 +118,9 @@ public class GrafRitare {
     public double avrundning(double tal) { //avrundar, antal nollar avgår hur många decimaler som metodenavrundar till
         tal = tal/Zoom;
         return (double) Math.round(tal * 1000d) / 1000d;
+    }
+    
+    public double avrundningLuft(double tal) { //samma som ovan, fast avsedd för grafer med luftmotstånd
+        return (double) Math.round(tal *1000d) /1000d;
     }
 }

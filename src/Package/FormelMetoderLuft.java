@@ -34,6 +34,10 @@ public class FormelMetoderLuft {
         this.V0 = V0; // inamta starthastighet
     }
 
+    public double getV0() {
+        return V0;
+    }
+
     public void setVinkel(double Vinkel) {
         this.Vinkel = Math.toRadians(Vinkel); //översätts från grader till radianer
     }
@@ -141,11 +145,11 @@ public class FormelMetoderLuft {
         return yPosition = yStartHastighet() * t - (g * (t * t) / 2);
     }
 
-    public double sammanlagtHastighet() {
+    public double sammanlagtHastighet(double xHastighet, double yHastighet) {
         //Formeln är v = √V0x2+V0y2
         //alltså roten ur V0x upphöjt i två + V0y upphöjt i två 
 
-        return sammanlagtHastighet = Math.sqrt(Math.pow(xHastighet(), 2) + Math.pow(yHastighet(), 2));
+        return sammanlagtHastighet = Math.sqrt(Math.pow(xHastighet, 2) + Math.pow(yHastighet, 2));
     }
 
     public double totalaTid() {
@@ -172,48 +176,35 @@ public class FormelMetoderLuft {
         //p = luftens densitet
         //a = föremålets tvärsnittsarea
 
-        return k = (0.5) * c * p * a * Math.pow(V0, 2); //räknar ut luftmotståndet 
-
+        return k = (c*p*a)/(2*m); //räknar ut luftmotståndet 
     }
-    
-    public double xAccelerationbegynnelse() {
+
+    public double xAcceleration(double v, double vx) {
         //formlen är aX = (((0.5) * c * p * a * V2) * V )/ m) * Vx
 
-        return xAcceleration = -((k() * xHastighet()) / (m)) * xHastighet();//ska räkna ut accelerationen i xled till luftmotståndet
+        return xAcceleration = -k()*v*vx;//ska räkna ut accelerationen i xled till luftmotståndet
     }
 
-    public double yAccelerationbegynnelse() {
+    public double yAcceleration(double v, double vy) {
         //formlen är ay = -g * (((0.5) * c * p * a * V2) * V )/ m) * Vy
 
-        return yAcceleration = -g * ((((k) * (yHastighet())) / (m)) * (yHastighet));//ska räkna ut accelerationen i yled till luftmotståndet
-    }
-
-    public double xAcceleration() {
-        //formlen är aX = (((0.5) * c * p * a * V2) * V )/ m) * Vx
-
-        return xAcceleration = -((k() * sammanlagtHastighet()) / (m)) * xHastighet();//ska räkna ut accelerationen i xled till luftmotståndet
-    }
-
-    public double yAcceleration() {
-        //formlen är ay = -g * (((0.5) * c * p * a * V2) * V )/ m) * Vy
-
-        return yAcceleration = -g * ((((k) * (sammanlagtHastighet())) / (m)) * (yHastighet));//ska räkna ut accelerationen i yled till luftmotståndet
+        return yAcceleration = -(k*v*vy)-g;//ska räkna ut accelerationen i yled till luftmotståndet
     }
     
-    public double xPositionLuft(double x, double vx, double t) {
-        return x+vx*t;
+    public double xPositionLuft(double x, double vx, double deltaT) {
+        return x + (vx * deltaT);
     }
     
-    public double yPositionLuft(double y, double vy, double t) {
-        return y+vy*t;
+    public double yPositionLuft(double y, double vy, double deltaT) {
+        return y + (vy * deltaT);
     }
     
-    public double xHastughetLuft(double vx, double ax, double tid) {
-        return vx + ax * tid;
+    public double xHastighetLuft(double vx, double ax, double deltaT) {
+        return vx + (ax * deltaT);
     }
     
-    public double yHadtighetLuft(double vy, double ay, double tid) {
-        return vy + ay * tid;
+    public double yHastighetLuft(double vy, double ay, double deltaT) {
+        return vy + (ay * deltaT);
     }
 
 }
