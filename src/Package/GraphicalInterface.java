@@ -8,6 +8,7 @@ package Package;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.*;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -20,6 +21,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
     int rutnatStorlek;
     Boolean grafFinns = false;
     Boolean grafFinnsLuft = false;
+    Boolean grafRensa = true;
     
     Scanner scanner;
     FormelMetoder fm;
@@ -56,19 +58,19 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaResultat = new javax.swing.JTextArea();
         jLabelHastighet = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelYStartPosition = new javax.swing.JLabel();
+        jLabelVinkel = new javax.swing.JLabel();
+        jLabelTyngdAcceleration = new javax.swing.JLabel();
+        jLabelDeltaT = new javax.swing.JLabel();
         jTextFieldDeltaT = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanelGraf2 = new MyPanel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelZoom = new javax.swing.JLabel();
         jTextFieldZoom = new javax.swing.JTextField();
         jCheckBoxLuft = new javax.swing.JCheckBox();
         jTextFieldRutnat = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        jLabelRutnat = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextAreaResultatLuft = new javax.swing.JTextArea();
         jLabelArea = new javax.swing.JLabel();
@@ -79,8 +81,15 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jTextFieldArea = new javax.swing.JTextField();
         jTextFieldDensitet = new javax.swing.JTextField();
         jTextFieldKoefficienten = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabelList = new javax.swing.JLabel();
+        jLabelListLuft = new javax.swing.JLabel();
+        jButtonPingisboll = new javax.swing.JButton();
+        jButtonBowling = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButtonRensa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1668, 780));
@@ -93,7 +102,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 jButtonStartActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 80, -1));
+        getContentPane().add(jButtonStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 540, 80, -1));
 
         jTextFieldHastighet.setText("25");
         jTextFieldHastighet.addActionListener(new java.awt.event.ActionListener() {
@@ -121,17 +130,17 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jLabelHastighet.setText("Hastighet (meter/sekund)");
         getContentPane().add(jLabelHastighet, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 580, -1, -1));
 
-        jLabel2.setText("Y-led start (meter)");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 580, -1, -1));
+        jLabelYStartPosition.setText("Y-led start (meter)");
+        getContentPane().add(jLabelYStartPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 580, -1, -1));
 
-        jLabel3.setText("Vinkel (grader)");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 540, -1, -1));
+        jLabelVinkel.setText("Vinkel (grader)");
+        getContentPane().add(jLabelVinkel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 540, -1, -1));
 
-        jLabel4.setText("Tyngdacceleration (meter/sekund²)");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 540, -1, -1));
+        jLabelTyngdAcceleration.setText("Tyngdacceleration (meter/sekund²)");
+        getContentPane().add(jLabelTyngdAcceleration, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 540, -1, -1));
 
-        jLabel1.setText("delta Tid");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 670, -1, -1));
+        jLabelDeltaT.setText("delta Tid");
+        getContentPane().add(jLabelDeltaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 670, -1, -1));
 
         jTextFieldDeltaT.setText("0.01");
         jTextFieldDeltaT.addActionListener(new java.awt.event.ActionListener() {
@@ -159,8 +168,8 @@ public class GraphicalInterface extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 24, 893, 489));
 
-        jLabel5.setText("Zoom");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 630, -1, -1));
+        jLabelZoom.setText("Zoom");
+        getContentPane().add(jLabelZoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 630, -1, -1));
 
         jTextFieldZoom.setText("10");
         jTextFieldZoom.addActionListener(new java.awt.event.ActionListener() {
@@ -181,8 +190,8 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jTextFieldRutnat.setText("10");
         getContentPane().add(jTextFieldRutnat, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 590, 80, -1));
 
-        jLabel6.setText("Rutnat storlek");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, -1, -1));
+        jLabelRutnat.setText("Rutnat storlek");
+        getContentPane().add(jLabelRutnat, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, -1, -1));
 
         jTextAreaResultatLuft.setColumns(20);
         jTextAreaResultatLuft.setRows(5);
@@ -205,20 +214,56 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jTextFieldMassa.setText("0.00258");
         getContentPane().add(jTextFieldMassa, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 670, 80, -1));
 
-        jTextFieldArea.setText("0.0011461");
-        getContentPane().add(jTextFieldArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 670, 80, -1));
+        jTextFieldArea.setText("0.0011460844");
+        getContentPane().add(jTextFieldArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 670, 130, -1));
 
         jTextFieldDensitet.setText("1.2041");
-        getContentPane().add(jTextFieldDensitet, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 710, 80, -1));
+        getContentPane().add(jTextFieldDensitet, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 710, 130, -1));
 
         jTextFieldKoefficienten.setText("0.45");
         getContentPane().add(jTextFieldKoefficienten, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 710, 80, -1));
 
-        jLabel7.setText("Formel utan luftmotstånd");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 530, -1, -1));
+        jLabelList.setText("Formel utan luftmotstånd");
+        getContentPane().add(jLabelList, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 530, -1, -1));
 
-        jLabel8.setText("Formel med luftmotstånd");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 530, -1, -1));
+        jLabelListLuft.setText("Formel med luftmotstånd");
+        getContentPane().add(jLabelListLuft, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 530, -1, -1));
+
+        jButtonPingisboll.setText("Pingisboll");
+        jButtonPingisboll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPingisbollActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonPingisboll, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 660, 100, -1));
+
+        jButtonBowling.setText("Bowlingklot");
+        jButtonBowling.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBowlingActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonBowling, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 700, 100, -1));
+
+        jButton3.setText("jButton3");
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 660, -1, -1));
+
+        jButton4.setText("jButton4");
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 700, -1, -1));
+
+        jButton5.setText("jButton5");
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 660, -1, -1));
+
+        jButton6.setText("jButton6");
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 700, -1, -1));
+
+        jButtonRensa.setText("Rensa");
+        jButtonRensa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRensaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonRensa, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 80, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -226,13 +271,20 @@ public class GraphicalInterface extends javax.swing.JFrame {
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
         fm = new FormelMetoder(); //skapar en graf och alla formler kan användas och variabler kan inmatas
         
-        fm.setV0(Double.parseDouble(jTextFieldHastighet.getText())); //begynnelsehastighet bestämms
-        fm.setyStartPosition(Double.parseDouble(jTextFieldYStartPosition.getText())); //y-startposition bestämms
-        fm.setVinkel(Double.parseDouble(jTextFieldVinkel.getText())); //vinkeln bestämms
-        fm.setG(Double.parseDouble(jTextFieldTyngdAcceleration.getText())); //Tyngdacceleration bestämms
+        grafRensa = false;
         
-        Zoom = Double.parseDouble(jTextFieldZoom.getText()); //inzoomningen bestämms
-        rutnatStorlek = Integer.parseInt(jTextFieldRutnat.getText()); //storlek på rutnät bestämms
+        try {
+            fm.setV0(Double.parseDouble(jTextFieldHastighet.getText())); //begynnelsehastighet bestämms
+            fm.setyStartPosition(Double.parseDouble(jTextFieldYStartPosition.getText())); //y-startposition bestämms
+            fm.setVinkel(Double.parseDouble(jTextFieldVinkel.getText())); //vinkeln bestämms
+            fm.setG(Double.parseDouble(jTextFieldTyngdAcceleration.getText())); //Tyngdacceleration bestämms
+
+            Zoom = Double.parseDouble(jTextFieldZoom.getText()); //inzoomningen bestämms
+            rutnatStorlek = Integer.parseInt(jTextFieldRutnat.getText()); //storlek på rutnät bestämms
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Värdena inmatade fel");
+            return;
+        }
         
         gf = new GrafRitare(fm, Zoom); //grafritaren skapas så att grafens värden kan räknas ut och sedan ritas ut
         
@@ -241,12 +293,22 @@ public class GraphicalInterface extends javax.swing.JFrame {
         if(jCheckBoxLuft.isSelected()) {
             fmLuft = new FormelMetoderLuft(); ////skapar en graf anpassad för luftmotstånd och alla formler kan användas och variabler kan inmatas
             
-            fmLuft.setV0(Double.parseDouble(jTextFieldHastighet.getText())); //begynnelsehastighet bestämms
-            fmLuft.setyStartPosition(Double.parseDouble(jTextFieldYStartPosition.getText()));//y-startposition bestämms
-            fmLuft.setVinkel(Double.parseDouble(jTextFieldVinkel.getText()));//vinkeln bestämms
-            fmLuft.setG(Double.parseDouble(jTextFieldTyngdAcceleration.getText()));//Tyngdacceleration bestämms
-            
-            Zoom = Double.parseDouble(jTextFieldZoom.getText());//inzoomningen bestämms
+            try {
+                fmLuft.setV0(Double.parseDouble(jTextFieldHastighet.getText())); //begynnelsehastighet bestämms
+                fmLuft.setyStartPosition(Double.parseDouble(jTextFieldYStartPosition.getText()));//y-startposition bestämms
+                fmLuft.setVinkel(Double.parseDouble(jTextFieldVinkel.getText()));//vinkeln bestämms
+                fmLuft.setG(Double.parseDouble(jTextFieldTyngdAcceleration.getText()));//Tyngdacceleration bestämms
+
+                fmLuft.setMassa(Double.parseDouble(jTextFieldMassa.getText()));
+                fmLuft.setA(Double.parseDouble(jTextFieldArea.getText()));
+                fmLuft.setC(Double.parseDouble(jTextFieldKoefficienten.getText()));
+                fmLuft.setP(Double.parseDouble(jTextFieldDensitet.getText()));
+
+                Zoom = Double.parseDouble(jTextFieldZoom.getText());//inzoomningen bestämms
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Värdena inmatade fel");
+                return;
+            }
             
             gfLuft = new GrafRitare(fmLuft, Zoom);//grafritaren anpassad för luftmotstånd skapas så att grafens värden kan räknas ut och sedan ritas ut
             
@@ -298,6 +360,23 @@ public class GraphicalInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCheckBoxLuftActionPerformed
 
+    private void jButtonPingisbollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPingisbollActionPerformed
+        jTextFieldArea.setText("0.0011460844");
+        jTextFieldKoefficienten.setText("0.45");
+        jTextFieldMassa.setText("0.00258");
+    }//GEN-LAST:event_jButtonPingisbollActionPerformed
+
+    private void jButtonBowlingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBowlingActionPerformed
+        jTextFieldArea.setText("0.0367966228");
+        jTextFieldKoefficienten.setText("0.45");
+        jTextFieldMassa.setText("6.3");
+    }//GEN-LAST:event_jButtonBowlingActionPerformed
+
+    private void jButtonRensaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRensaActionPerformed
+        grafRensa = true;
+        repaint();
+    }//GEN-LAST:event_jButtonRensaActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -331,21 +410,28 @@ public class GraphicalInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButtonBowling;
+    private javax.swing.JButton jButtonPingisboll;
+    private javax.swing.JButton jButtonRensa;
     private javax.swing.JButton jButtonStart;
     private javax.swing.JCheckBox jCheckBoxLuft;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelArea;
+    private javax.swing.JLabel jLabelDeltaT;
     private javax.swing.JLabel jLabelDensitet;
     private javax.swing.JLabel jLabelHastighet;
     private javax.swing.JLabel jLabelKoefficienten;
+    private javax.swing.JLabel jLabelList;
+    private javax.swing.JLabel jLabelListLuft;
     private javax.swing.JLabel jLabelMassa;
+    private javax.swing.JLabel jLabelRutnat;
+    private javax.swing.JLabel jLabelTyngdAcceleration;
+    private javax.swing.JLabel jLabelVinkel;
+    private javax.swing.JLabel jLabelYStartPosition;
+    private javax.swing.JLabel jLabelZoom;
     private javax.swing.JPanel jPanelGraf2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -416,6 +502,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
             }
             
             
+            
             //om grafen finns börjar programmet att rita grafen
             if(grafFinns) {
                 g.setColor(Color.white);
@@ -436,8 +523,15 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 g.drawPolyline(xKoordLuft, yKoordLuft, xKoordLuft.length);
             }
             
+            if(grafRensa) {
+                g.setColor(Color.gray);
+                g.fillRect(0, 0, jPanelGraf2.getWidth(), jPanelGraf2.getHeight());
+                grafRensa = false;
+            }
+            
             g2d.setTransform(old);
             jScrollPane3.revalidate();
+            
         }
     }
 }

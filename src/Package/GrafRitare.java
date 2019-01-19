@@ -68,10 +68,6 @@ public class GrafRitare {
         xkoordinaterLuft = new ArrayList();
         ykoordinaterLuft = new ArrayList();
         int indrag = 50;
-        fmLuft.setMassa(0.00258);
-        fmLuft.setA(Math.PI*Math.pow(0.0191, 2));
-        fmLuft.setC(0.45);
-        fmLuft.setP(1.2041);
         arrayLuft.add("steg\tx\ty\ttid" + 
                 "\n0\t0.0\t" + this.fmLuft.getyStartPosition() + "\t0");
         
