@@ -8,14 +8,14 @@ public class GrafRitare {
     ArrayList<Integer> ykoordinater;
     ArrayList<Integer> xkoordinaterLuft;
     ArrayList<Integer> ykoordinaterLuft;
-    double Zoom;
+    int Zoom;
     
-    public GrafRitare(FormelMetoder fm, double Zoom) {
+    public GrafRitare(FormelMetoder fm, int Zoom) {
         this.fm = fm;
         this.Zoom = Zoom;
     }
     
-    public GrafRitare(FormelMetoderLuft fmLuft, double Zoom) {
+    public GrafRitare(FormelMetoderLuft fmLuft, int Zoom) {
         this.fmLuft = fmLuft;
         this.Zoom = Zoom;
     }
@@ -27,6 +27,7 @@ public class GrafRitare {
         xkoordinater = new ArrayList(); //en lista med endast xkoordinater för att rita med
         ykoordinater = new ArrayList(); // en lista med endast ykoordinater för att rita med
         int indrag = 50; //hur långt från kanten av rutan grafen är
+        
         
         //start värdena av kasten läggs in i array listan
         array.add("steg\tx\ty\ttid" + 

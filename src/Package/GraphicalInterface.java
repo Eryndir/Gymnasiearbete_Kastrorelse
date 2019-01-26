@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  */
 public class GraphicalInterface extends javax.swing.JFrame {
     int test = 0;
-    double Zoom;
+    int Zoom;
     int rutnatStorlek;
     Boolean grafFinns = false;
     Boolean grafFinnsLuft = false;
@@ -39,6 +39,13 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jLabelArea.setVisible(false);
         jLabelDensitet.setVisible(false);
         jLabelKoefficienten.setVisible(false);
+        
+        jButtonPingisboll.setVisible(false);
+        jButtonBowling.setVisible(false);
+        jButtonTBD.setVisible(false);
+        jButtonTBD2.setVisible(false);
+        jButtonTBD3.setVisible(false);
+        jButtonTBD4.setVisible(false);
     }
 
     /**
@@ -85,14 +92,14 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jLabelListLuft = new javax.swing.JLabel();
         jButtonPingisboll = new javax.swing.JButton();
         jButtonBowling = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jButtonTBD = new javax.swing.JButton();
+        jButtonTBD2 = new javax.swing.JButton();
+        jButtonTBD3 = new javax.swing.JButton();
+        jButtonTBD4 = new javax.swing.JButton();
         jButtonRensa = new javax.swing.JButton();
+        jCheckBoxAutoZoom = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1668, 780));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -245,17 +252,37 @@ public class GraphicalInterface extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonBowling, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 700, 100, -1));
 
-        jButton3.setText("jButton3");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 660, -1, -1));
+        jButtonTBD.setText("TBD");
+        jButtonTBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTBDActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonTBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 660, 100, 30));
 
-        jButton4.setText("jButton4");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 700, -1, -1));
+        jButtonTBD2.setText("TBD");
+        jButtonTBD2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTBD2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonTBD2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 700, 100, -1));
 
-        jButton5.setText("jButton5");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 660, -1, -1));
+        jButtonTBD3.setText("TBD");
+        jButtonTBD3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTBD3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonTBD3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 660, 110, -1));
 
-        jButton6.setText("jButton6");
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 700, -1, -1));
+        jButtonTBD4.setText("TBD");
+        jButtonTBD4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTBD4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonTBD4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 700, 110, -1));
 
         jButtonRensa.setText("Rensa");
         jButtonRensa.addActionListener(new java.awt.event.ActionListener() {
@@ -264,6 +291,9 @@ public class GraphicalInterface extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonRensa, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 80, -1));
+
+        jCheckBoxAutoZoom.setText("Automatisk Zoom");
+        getContentPane().add(jCheckBoxAutoZoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 710, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -279,14 +309,19 @@ public class GraphicalInterface extends javax.swing.JFrame {
             fm.setVinkel(Double.parseDouble(jTextFieldVinkel.getText())); //vinkeln bestämms
             fm.setG(Double.parseDouble(jTextFieldTyngdAcceleration.getText())); //Tyngdacceleration bestämms
 
-            Zoom = Double.parseDouble(jTextFieldZoom.getText()); //inzoomningen bestämms
+            Zoom = Integer.parseInt(jTextFieldZoom.getText()); //inzoomningen bestämms
             rutnatStorlek = Integer.parseInt(jTextFieldRutnat.getText()); //storlek på rutnät bestämms
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Värdena inmatade fel");
             return;
         }
-        
-        gf = new GrafRitare(fm, Zoom); //grafritaren skapas så att grafens värden kan räknas ut och sedan ritas ut
+        if(jCheckBoxAutoZoom.isSelected()) {
+            while (fm.xMax() * Zoom > 800) {
+                Zoom -= 1;
+            }
+            jTextFieldZoom.setText(""+Zoom);
+        }
+        gf = new GrafRitare(fm, Zoom);  //grafritaren skapas så att grafens värden kan räknas ut och sedan ritas ut
         
         grafFinns = true; //indikerar att en graf finns och kan ritas
         
@@ -304,7 +339,8 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 fmLuft.setC(Double.parseDouble(jTextFieldKoefficienten.getText()));
                 fmLuft.setP(Double.parseDouble(jTextFieldDensitet.getText()));
 
-                Zoom = Double.parseDouble(jTextFieldZoom.getText());//inzoomningen bestämms
+                Zoom = Integer.parseInt(jTextFieldZoom.getText());//inzoomningen bestämms
+                
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Värdena inmatade fel");
                 return;
@@ -346,6 +382,13 @@ public class GraphicalInterface extends javax.swing.JFrame {
             jLabelArea.setVisible(true);
             jLabelDensitet.setVisible(true);
             jLabelKoefficienten.setVisible(true);
+            
+            jButtonPingisboll.setVisible(true);
+            jButtonBowling.setVisible(true);
+            jButtonTBD.setVisible(true);
+            jButtonTBD2.setVisible(true);
+            jButtonTBD3.setVisible(true);
+            jButtonTBD4.setVisible(true);
         }
         else {
             jTextFieldMassa.setVisible(false);
@@ -357,6 +400,13 @@ public class GraphicalInterface extends javax.swing.JFrame {
             jLabelArea.setVisible(false);
             jLabelDensitet.setVisible(false);
             jLabelKoefficienten.setVisible(false);
+            
+            jButtonPingisboll.setVisible(false);
+            jButtonBowling.setVisible(false);
+            jButtonTBD.setVisible(false);
+            jButtonTBD2.setVisible(false);
+            jButtonTBD3.setVisible(false);
+            jButtonTBD4.setVisible(false);
         }
     }//GEN-LAST:event_jCheckBoxLuftActionPerformed
 
@@ -368,7 +418,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
 
     private void jButtonBowlingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBowlingActionPerformed
         jTextFieldArea.setText("0.0367966228");
-        jTextFieldKoefficienten.setText("0.45");
+        jTextFieldKoefficienten.setText("0.47");
         jTextFieldMassa.setText("6.3");
     }//GEN-LAST:event_jButtonBowlingActionPerformed
 
@@ -376,6 +426,22 @@ public class GraphicalInterface extends javax.swing.JFrame {
         grafRensa = true;
         repaint();
     }//GEN-LAST:event_jButtonRensaActionPerformed
+
+    private void jButtonTBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTBDActionPerformed
+        
+    }//GEN-LAST:event_jButtonTBDActionPerformed
+
+    private void jButtonTBD2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTBD2ActionPerformed
+        
+    }//GEN-LAST:event_jButtonTBD2ActionPerformed
+
+    private void jButtonTBD3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTBD3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTBD3ActionPerformed
+
+    private void jButtonTBD4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTBD4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTBD4ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -410,14 +476,15 @@ public class GraphicalInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButtonBowling;
     private javax.swing.JButton jButtonPingisboll;
     private javax.swing.JButton jButtonRensa;
     private javax.swing.JButton jButtonStart;
+    private javax.swing.JButton jButtonTBD;
+    private javax.swing.JButton jButtonTBD2;
+    private javax.swing.JButton jButtonTBD3;
+    private javax.swing.JButton jButtonTBD4;
+    private javax.swing.JCheckBox jCheckBoxAutoZoom;
     private javax.swing.JCheckBox jCheckBoxLuft;
     private javax.swing.JLabel jLabelArea;
     private javax.swing.JLabel jLabelDeltaT;
@@ -486,22 +553,21 @@ public class GraphicalInterface extends javax.swing.JFrame {
             AffineTransform old = g2d.getTransform();
             g2d.translate(0, getHeight() - 1);
             g2d.scale(1, -1);
-            
-            rutnat = (rutnatStorlek *(int)Zoom)+50; //vertikala streck
-            g.drawLine(50, 40, 50, jPanelGraf2.getHeight());
-            for (int i = 0; i < 50000; i++) {
-                g.drawLine(rutnat, 40, rutnat, jPanelGraf2.getHeight());
-                rutnat += rutnatStorlek * (int)Zoom;
+            if(!grafRensa) {
+                rutnat = (rutnatStorlek * (int) Zoom) + 50; //vertikala streck
+                g.drawLine(50, 40, 50, jPanelGraf2.getHeight());
+                for (int i = 0; i < 50000; i++) {
+                    g.drawLine(rutnat, 40, rutnat, jPanelGraf2.getHeight());
+                    rutnat += rutnatStorlek * (int) Zoom;
+                }
+
+                rutnat = (rutnatStorlek * (int) Zoom) + 50; //horizontela streck
+                g.drawLine(40, 50, jPanelGraf2.getWidth(), 50);
+                for (int i = 0; i < 50000; i++) {
+                    g.drawLine(40, rutnat, jPanelGraf2.getWidth(), rutnat);
+                    rutnat += rutnatStorlek * (int) Zoom;
+                }
             }
-            
-            rutnat = (rutnatStorlek*(int)Zoom)+50; //horizontela streck
-            g.drawLine(40, 50, jPanelGraf2.getWidth(), 50);
-            for (int i = 0; i < 50000; i++) {
-                g.drawLine(40, rutnat , jPanelGraf2.getWidth(), rutnat);
-                rutnat += rutnatStorlek * (int)Zoom;
-            }
-            
-            
             
             //om grafen finns börjar programmet att rita grafen
             if(grafFinns) {
@@ -509,6 +575,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 //listorna i grafritaren översätts till vanliga arrays, då g.drawPolyline endast tar emot arrays, inte arraylists
                 int[] xKoord = gf.xkoordinater.stream().mapToInt(i->i).toArray();
                 int[] yKoord = gf.ykoordinater.stream().mapToInt(i->i).toArray();
+                
                 
                 //storlek på rutan anpassas enligt grafen
                 Dimension d = new Dimension((int)(gf.xkoordinater.get(gf.xkoordinater.size()-1))+100, (int)(gf.fm.yMax()*Zoom)+100); 
@@ -525,8 +592,11 @@ public class GraphicalInterface extends javax.swing.JFrame {
             
             if(grafRensa) {
                 g.setColor(Color.gray);
+                this.setPreferredSize(new Dimension(800,400));
                 g.fillRect(0, 0, jPanelGraf2.getWidth(), jPanelGraf2.getHeight());
                 grafRensa = false;
+                grafFinns = false;
+                grafFinnsLuft = false;
             }
             
             g2d.setTransform(old);
