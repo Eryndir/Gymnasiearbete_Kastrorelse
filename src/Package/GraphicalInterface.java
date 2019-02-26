@@ -16,36 +16,33 @@ import javax.swing.JPanel;
  * @author Edvin
  */
 public class GraphicalInterface extends javax.swing.JFrame {
+
     int test = 0;
     int Zoom;
     int rutnatStorlek;
     Boolean grafFinns = false;
     Boolean grafFinnsLuft = false;
-    Boolean grafRensa = true;
-    
+
     Scanner scanner;
     FormelMetoder fm;
     FormelMetoderLuft fmLuft;
     GrafRitare gf;
     GrafRitare gfLuft;
+
     public GraphicalInterface() {
         initComponents();
         jTextFieldMassa.setVisible(false);
         jTextFieldArea.setVisible(false);
         jTextFieldDensitet.setVisible(false);
         jTextFieldKoefficienten.setVisible(false);
-        
+
         jLabelMassa.setVisible(false);
         jLabelArea.setVisible(false);
         jLabelDensitet.setVisible(false);
         jLabelKoefficienten.setVisible(false);
-        
+
         jButtonPingisboll.setVisible(false);
         jButtonBowling.setVisible(false);
-        jButtonTBD.setVisible(false);
-        jButtonTBD2.setVisible(false);
-        jButtonTBD3.setVisible(false);
-        jButtonTBD4.setVisible(false);
     }
 
     /**
@@ -92,11 +89,6 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jLabelListLuft = new javax.swing.JLabel();
         jButtonPingisboll = new javax.swing.JButton();
         jButtonBowling = new javax.swing.JButton();
-        jButtonTBD = new javax.swing.JButton();
-        jButtonTBD2 = new javax.swing.JButton();
-        jButtonTBD3 = new javax.swing.JButton();
-        jButtonTBD4 = new javax.swing.JButton();
-        jButtonRensa = new javax.swing.JButton();
         jCheckBoxAutoZoom = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -109,7 +101,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 jButtonStartActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 540, 80, -1));
+        getContentPane().add(jButtonStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 80, -1));
 
         jTextFieldHastighet.setText("25");
         jTextFieldHastighet.addActionListener(new java.awt.event.ActionListener() {
@@ -242,7 +234,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 jButtonPingisbollActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonPingisboll, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 660, 100, -1));
+        getContentPane().add(jButtonPingisboll, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 660, 100, -1));
 
         jButtonBowling.setText("Bowlingklot");
         jButtonBowling.addActionListener(new java.awt.event.ActionListener() {
@@ -250,47 +242,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 jButtonBowlingActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonBowling, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 700, 100, -1));
-
-        jButtonTBD.setText("TBD");
-        jButtonTBD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTBDActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonTBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 660, 100, 30));
-
-        jButtonTBD2.setText("TBD");
-        jButtonTBD2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTBD2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonTBD2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 700, 100, -1));
-
-        jButtonTBD3.setText("TBD");
-        jButtonTBD3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTBD3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonTBD3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 660, 110, -1));
-
-        jButtonTBD4.setText("TBD");
-        jButtonTBD4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTBD4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonTBD4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 700, 110, -1));
-
-        jButtonRensa.setText("Rensa");
-        jButtonRensa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRensaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonRensa, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 80, -1));
+        getContentPane().add(jButtonBowling, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 700, 100, -1));
 
         jCheckBoxAutoZoom.setText("Automatisk Zoom");
         getContentPane().add(jCheckBoxAutoZoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 710, -1, -1));
@@ -300,9 +252,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
         fm = new FormelMetoder(); //skapar en graf och alla formler kan användas och variabler kan inmatas
-        
-        grafRensa = false;
-        
+
         try {
             fm.setV0(Double.parseDouble(jTextFieldHastighet.getText())); //begynnelsehastighet bestämms
             fm.setyStartPosition(Double.parseDouble(jTextFieldYStartPosition.getText())); //y-startposition bestämms
@@ -315,19 +265,19 @@ public class GraphicalInterface extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Värdena inmatade fel");
             return;
         }
-        if(jCheckBoxAutoZoom.isSelected()) {
+        if (jCheckBoxAutoZoom.isSelected()) {
             while (fm.xMax() * Zoom > 800) {
                 Zoom -= 1;
             }
-            jTextFieldZoom.setText(""+Zoom);
+            jTextFieldZoom.setText("" + Zoom);
         }
         gf = new GrafRitare(fm, Zoom);  //grafritaren skapas så att grafens värden kan räknas ut och sedan ritas ut
-        
+
         grafFinns = true; //indikerar att en graf finns och kan ritas
-        
-        if(jCheckBoxLuft.isSelected()) {
+
+        if (jCheckBoxLuft.isSelected()) {
             fmLuft = new FormelMetoderLuft(); ////skapar en graf anpassad för luftmotstånd och alla formler kan användas och variabler kan inmatas
-            
+
             try {
                 fmLuft.setV0(Double.parseDouble(jTextFieldHastighet.getText())); //begynnelsehastighet bestämms
                 fmLuft.setyStartPosition(Double.parseDouble(jTextFieldYStartPosition.getText()));//y-startposition bestämms
@@ -340,20 +290,20 @@ public class GraphicalInterface extends javax.swing.JFrame {
                 fmLuft.setP(Double.parseDouble(jTextFieldDensitet.getText()));
 
                 Zoom = Integer.parseInt(jTextFieldZoom.getText());//inzoomningen bestämms
-                
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Värdena inmatade fel");
                 return;
             }
-            
+
             gfLuft = new GrafRitare(fmLuft, Zoom);//grafritaren anpassad för luftmotstånd skapas så att grafens värden kan räknas ut och sedan ritas ut
-            
+
             grafFinnsLuft = true;//indikerar att en graf anpassad för luftmotstånd finns och kan ritas
         }
-        
+
         //skriver in resultaten av grafen in i listan så att användaren kan läsa värdena
         jTextAreaResultat.setText(gf.resultatOutout(gf.positionRaknare(Double.parseDouble(jTextFieldDeltaT.getText()))));
-        if(grafFinnsLuft) {
+        if (grafFinnsLuft) {
             jTextAreaResultatLuft.setText(gfLuft.resultatOutout(gfLuft.positionRaknareLuftMotstand(Double.parseDouble(jTextFieldDeltaT.getText()))));
         }
         repaint();
@@ -372,7 +322,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldHastighetActionPerformed
 
     private void jCheckBoxLuftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxLuftActionPerformed
-        if(jCheckBoxLuft.isSelected()) {
+        if (jCheckBoxLuft.isSelected()) {
             jTextFieldMassa.setVisible(true);
             jTextFieldArea.setVisible(true);
             jTextFieldDensitet.setVisible(true);
@@ -382,15 +332,10 @@ public class GraphicalInterface extends javax.swing.JFrame {
             jLabelArea.setVisible(true);
             jLabelDensitet.setVisible(true);
             jLabelKoefficienten.setVisible(true);
-            
+
             jButtonPingisboll.setVisible(true);
             jButtonBowling.setVisible(true);
-            jButtonTBD.setVisible(true);
-            jButtonTBD2.setVisible(true);
-            jButtonTBD3.setVisible(true);
-            jButtonTBD4.setVisible(true);
-        }
-        else {
+        } else {
             jTextFieldMassa.setVisible(false);
             jTextFieldArea.setVisible(false);
             jTextFieldDensitet.setVisible(false);
@@ -400,13 +345,9 @@ public class GraphicalInterface extends javax.swing.JFrame {
             jLabelArea.setVisible(false);
             jLabelDensitet.setVisible(false);
             jLabelKoefficienten.setVisible(false);
-            
+
             jButtonPingisboll.setVisible(false);
             jButtonBowling.setVisible(false);
-            jButtonTBD.setVisible(false);
-            jButtonTBD2.setVisible(false);
-            jButtonTBD3.setVisible(false);
-            jButtonTBD4.setVisible(false);
         }
     }//GEN-LAST:event_jCheckBoxLuftActionPerformed
 
@@ -421,27 +362,6 @@ public class GraphicalInterface extends javax.swing.JFrame {
         jTextFieldKoefficienten.setText("0.47");
         jTextFieldMassa.setText("6.3");
     }//GEN-LAST:event_jButtonBowlingActionPerformed
-
-    private void jButtonRensaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRensaActionPerformed
-        grafRensa = true;
-        repaint();
-    }//GEN-LAST:event_jButtonRensaActionPerformed
-
-    private void jButtonTBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTBDActionPerformed
-        
-    }//GEN-LAST:event_jButtonTBDActionPerformed
-
-    private void jButtonTBD2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTBD2ActionPerformed
-        
-    }//GEN-LAST:event_jButtonTBD2ActionPerformed
-
-    private void jButtonTBD3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTBD3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonTBD3ActionPerformed
-
-    private void jButtonTBD4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTBD4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonTBD4ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -478,12 +398,7 @@ public class GraphicalInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBowling;
     private javax.swing.JButton jButtonPingisboll;
-    private javax.swing.JButton jButtonRensa;
     private javax.swing.JButton jButtonStart;
-    private javax.swing.JButton jButtonTBD;
-    private javax.swing.JButton jButtonTBD2;
-    private javax.swing.JButton jButtonTBD3;
-    private javax.swing.JButton jButtonTBD4;
     private javax.swing.JCheckBox jCheckBoxAutoZoom;
     private javax.swing.JCheckBox jCheckBoxLuft;
     private javax.swing.JLabel jLabelArea;
@@ -520,88 +435,77 @@ public class GraphicalInterface extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private class MyPanel extends JPanel {
+
         //panelen som grafen ritas i
         public MyPanel() {
         }
-        
+
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             setBackground(Color.gray);
             Graphics2D g2d = (Graphics2D) g;
             int rutnat = 0;
             int siffror = 0;
-            
+
             //om det finns en graf ritar programmet siffor anpassat till rutnätets storlek för avläsning av grafen
-            if(grafFinns) {
+            if (grafFinns) {
                 for (int i = 0; i < 50000; i++) { //vertikala siffror
-                    g2d.drawString("" + siffror, 5, jPanelGraf2.getHeight() - ((rutnat * (int) Zoom) + 50));
+                    g2d.drawString("" + siffror + " m", 5, jPanelGraf2.getHeight() - ((rutnat * (int) Zoom) + 50));
                     rutnat += rutnatStorlek;
                     siffror += rutnatStorlek;
                 }
-                
+
                 rutnat = 0;
                 siffror = 0;
                 for (int i = 0; i < 50000; i++) { //horizontela siffror
-                    g2d.drawString("" + rutnat, (rutnat * (int) Zoom) + 45, jPanelGraf2.getHeight() - 20);
+                    g2d.drawString("" + rutnat + " m", (rutnat * (int) Zoom) + 45, jPanelGraf2.getHeight() - 20);
                     rutnat += rutnatStorlek;
                     siffror += rutnatStorlek;
 
                 }
             }
-            
+
             //Dessa tre rader gör att man ritar från det nedre vänstra hörn istället från det övre vänstra hörn, vilket underlättar ritning av graf
             AffineTransform old = g2d.getTransform();
             g2d.translate(0, getHeight() - 1);
             g2d.scale(1, -1);
-            if(!grafRensa) {
-                rutnat = (rutnatStorlek * (int) Zoom) + 50; //vertikala streck
-                g.drawLine(50, 40, 50, jPanelGraf2.getHeight());
-                for (int i = 0; i < 50000; i++) {
-                    g.drawLine(rutnat, 40, rutnat, jPanelGraf2.getHeight());
-                    rutnat += rutnatStorlek * (int) Zoom;
-                }
-
-                rutnat = (rutnatStorlek * (int) Zoom) + 50; //horizontela streck
-                g.drawLine(40, 50, jPanelGraf2.getWidth(), 50);
-                for (int i = 0; i < 50000; i++) {
-                    g.drawLine(40, rutnat, jPanelGraf2.getWidth(), rutnat);
-                    rutnat += rutnatStorlek * (int) Zoom;
-                }
+            rutnat = (rutnatStorlek * (int) Zoom) + 50; //vertikala streck
+            g.drawLine(50, 40, 50, jPanelGraf2.getHeight());
+            for (int i = 0; i < 50000; i++) {
+                g.drawLine(rutnat, 40, rutnat, jPanelGraf2.getHeight());
+                rutnat += rutnatStorlek * (int) Zoom;
             }
-            
+
+            rutnat = (rutnatStorlek * (int) Zoom) + 50; //horizontela streck
+            g.drawLine(40, 50, jPanelGraf2.getWidth(), 50);
+            for (int i = 0; i < 50000; i++) {
+                g.drawLine(40, rutnat, jPanelGraf2.getWidth(), rutnat);
+                rutnat += rutnatStorlek * (int) Zoom;
+            }
+
             //om grafen finns börjar programmet att rita grafen
-            if(grafFinns) {
+            if (grafFinns) {
                 g.setColor(Color.white);
                 //listorna i grafritaren översätts till vanliga arrays, då g.drawPolyline endast tar emot arrays, inte arraylists
-                int[] xKoord = gf.xkoordinater.stream().mapToInt(i->i).toArray();
-                int[] yKoord = gf.ykoordinater.stream().mapToInt(i->i).toArray();
-                
-                
+                int[] xKoord = gf.xkoordinater.stream().mapToInt(i -> i).toArray();
+                int[] yKoord = gf.ykoordinater.stream().mapToInt(i -> i).toArray();
+
                 //storlek på rutan anpassas enligt grafen
-                Dimension d = new Dimension((int)(gf.xkoordinater.get(gf.xkoordinater.size()-1))+100, (int)(gf.fm.yMax()*Zoom)+100); 
+                Dimension d = new Dimension((int) (gf.xkoordinater.get(gf.xkoordinater.size() - 1)) + 100, (int) (gf.fm.yMax() * Zoom) + 100);
                 this.setPreferredSize(d);
                 g.drawPolyline(xKoord, yKoord, xKoord.length); //ritar grafen
             }
-            
-            if(grafFinnsLuft) {
+
+            if (grafFinnsLuft) {
                 g.setColor(Color.red);
-                int[] xKoordLuft = gfLuft.xkoordinaterLuft.stream().mapToInt(i->i).toArray();
-                int[] yKoordLuft = gfLuft.ykoordinaterLuft.stream().mapToInt(i->i).toArray();
+                int[] xKoordLuft = gfLuft.xkoordinaterLuft.stream().mapToInt(i -> i).toArray();
+                int[] yKoordLuft = gfLuft.ykoordinaterLuft.stream().mapToInt(i -> i).toArray();
                 g.drawPolyline(xKoordLuft, yKoordLuft, xKoordLuft.length);
             }
-            
-            if(grafRensa) {
-                g.setColor(Color.gray);
-                this.setPreferredSize(new Dimension(800,400));
-                g.fillRect(0, 0, jPanelGraf2.getWidth(), jPanelGraf2.getHeight());
-                grafRensa = false;
-                grafFinns = false;
-                grafFinnsLuft = false;
-            }
-            
+
             g2d.setTransform(old);
             jScrollPane3.revalidate();
-            
+
         }
     }
 }
