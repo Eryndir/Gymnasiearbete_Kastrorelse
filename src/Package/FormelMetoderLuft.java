@@ -15,227 +15,215 @@ public class FormelMetoderLuft extends FormelMetoder {
     public double k;
 
     /**
-     *
+     * Detta är luftmotståndskoefficienten
      */
-    public double c; //Detta är luftmotståndskoefficienten
+    public double c;
 
     /**
-     *
+     * Detta är luftens densitet, är 1,2041 kg/m3 i vanlig luft
      */
-    public double p; //Detta är luftens densitet, är 1,2041 kg/m3 i vanlig luft
+    public double p;
 
     /**
-     *
+     * Föremålets tvärsnittsarea
      */
-    public double a; //Föremålets tvärsnittsarea
+    public double a;
 
     /**
-     *
+     * Föremålets massa
      */
-    protected double m; //massa   
+    protected double m;
 
     /**
-     *
+     * Acceleration i x-led
      */
     protected double xAcceleration;
 
     /**
-     *
+     * Acceleration i y-led
      */
     protected double yAcceleration;
 
     /**
+     * Returnerar luftmotståndskoefficienten
      *
-     * @return
+     * @return luftmotståndet
      */
     public double getK() {
         return k;
     }
 
     /**
+     * Bestämmer luftmotståndet
      *
-     * @param k
+     * @param k Det valda luftmotstånds värdet
      */
     public void setK(double k) {
         this.k = k;
     }
 
     /**
+     * Returnerar luftmotståndskoefficienten
      *
-     * @return
+     * @return luftmotståndskoefficienten
      */
     public double getC() {
         return c;
     }
 
     /**
+     * Bestämmer luftmotståndskoefficienten
      *
-     * @param c
+     * @param c Den valda luftmotståndskoefficienten
      */
     public void setC(double c) {
         this.c = c;
     }
 
     /**
+     * Returnerar densitetet
      *
-     * @return
+     * @return densitet
      */
     public double getP() {
         return p;
     }
 
     /**
+     * Bestämmer densitetet
      *
-     * @param p
+     * @param p Det valda densitetet
      */
     public void setP(double p) {
         this.p = p;
     }
 
     /**
+     * Returnerar tvärsnittsarea
      *
-     * @return
+     * @return tvärsnittsarea
      */
     public double getA() {
         return a;
     }
 
     /**
+     * Bestämmer tvärsnittsarea
      *
-     * @param a
+     * @param a Den valda tvärsnittsarea
      */
     public void setA(double a) {
         this.a = a;
     }
 
     /**
+     * Returnerar massan
      *
-     * @return
+     * @return massan
      */
     public double getMassa() {
         return m;
     }
 
     /**
+     * Bestämmer massan
      *
-     * @param m
+     * @param m Den valda massan
      */
     public void setMassa(double m) {
         this.m = m;
     }
 
     /**
+     * Räknar ut luftmotståndet med formeln (c*p*a)/(2m) där c =
+     * luftmotståndskoefficienten, p = luftens densitet, a = föremålets
+     * tvärsnittsarea och m = föremålets massa
      *
-     * @return
-     */
-    public double getxAcceleration() {
-        return xAcceleration;
-    }
-
-    /**
-     *
-     * @param xAcceleration
-     */
-    public void setxAcceleration(double xAcceleration) {
-        this.xAcceleration = xAcceleration;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public double getyAcceleration() {
-        return yAcceleration;
-    }
-
-    /**
-     *
-     * @param yAcceleration
-     */
-    public void setyAcceleration(double yAcceleration) {
-        this.yAcceleration = yAcceleration;
-    }
-
-    /**
-     *
-     * @return
+     * @return Luftotståndet
      */
     public double k() {
-        //Formeln är F = 1/2 * c * p * a * V2
-        //(k = F)
-        //c = luftmotståndskoefficienten
-        //p = luftens densitet
-        //a = föremålets tvärsnittsarea
-
-        return k = (c * p * a) / (2 * m); //räknar ut luftmotståndet 
+        return k = (c * p * a) / (2 * m);
     }
 
     /**
+     * Räknar ut accelerationen i x-led enligt en stegmetod. Formeln är 
+     * Axn = -k * Vn * Vxn, där n är det nuvarande steget
      *
-     * @param v
-     * @param vx
-     * @return
+     * @param v totala hastigheten från föregående steg
+     * @param vx hastigheten i x-led från föregående steg
+     * @return acceleration i x-led
      */
     public double xAcceleration(double v, double vx) {
-        //formlen är aX = (((0.5) * c * p * a * V2) * V )/ m) * Vx
-
-        return xAcceleration = -k() * v * vx;//ska räkna ut accelerationen i xled till luftmotståndet
+        return xAcceleration = -k() * v * vx;
     }
 
     /**
+     * Räknar ut accelerationen i y-led enligt en stegmetod. Formeln är Ayn =
+     * -g-k*Vn*Vyn, där n är det nuvarande steget
      *
-     * @param v
-     * @param vy
-     * @return
+     * @param v totala hastigheten från föregående steg
+     * @param vy hastigheten i y-led från föregående steg
+     * @return acceleration i y-led
      */
     public double yAcceleration(double v, double vy) {
         //formlen är ay = -g * (((0.5) * c * p * a * V2) * V )/ m) * Vy
 
-        return yAcceleration = -(k * v * vy) - g;//ska räkna ut accelerationen i yled till luftmotståndet
+        return yAcceleration = -(k * v * vy) - g;
     }
 
     /**
+     * Räknar ut positionen av föremålet i x-led enligt en stegmetod. Formeln 
+     * är Xn = Xn-1 + Vxn-1 * deltaT, där m är det nuvarande steget och 
+     * n-1 är det föregående steget
      *
-     * @param x
-     * @param vx
-     * @param deltaT
-     * @return
+     * @param x positionen i x-led från föregående steg
+     * @param vx hastiheten i x-led från föregående steg
+     * @param deltaT tidsskillnaden mellan varje steg
+     * @return X-positionen
      */
     public double xPositionLuft(double x, double vx, double deltaT) {
         return x + (vx * deltaT);
     }
 
     /**
+     * Räknar ut positionen av föremålet i y-led enligt en stegmetod. Formeln 
+     * är Yn = Yn-1 + Yxn-1 * deltaT, där n är det nuvarande steget och 
+     * n-1 är det föregående steget
      *
-     * @param y
-     * @param vy
-     * @param deltaT
-     * @return
+     * @param y positionen i Y-led från föregående steg
+     * @param vy hastigheten i y-led från föregående steg
+     * @param deltaT tidsskillnaden mellan farje steg
+     * @return Y-positionen
      */
     public double yPositionLuft(double y, double vy, double deltaT) {
         return y + (vy * deltaT);
     }
 
     /**
+     * Räknar ut hastigheten av föremålet i x-led enligt enstegmetod. Formeln 
+     * är Vxn = Vxn-1 + Axn-1 * t, där n är det nuvarande steget och n-1 
+     * är det föregående steget
      *
-     * @param vx
-     * @param ax
-     * @param deltaT
-     * @return
+     * @param vx hastigheten i x-led från föregående steg
+     * @param ax acceleration i x-led från föregående steg
+     * @param deltaT tidsskillnaden mellan farje steg
+     * @return hastigheten i x-led med luftmotstånd
      */
     public double xHastighetLuft(double vx, double ax, double deltaT) {
         return vx + (ax * deltaT);
     }
 
     /**
+     * Räknar ut hastigheten av föremålet i x-led enligt enstegmetod. Formeln
+     * är Vyn = Vyn-1 + Ayn-1 * t, där n är det nuvarande steget och n-1 
+     * är det föregående steget
      *
      * @param vy
      * @param ay
-     * @param deltaT
+     * @param deltaT tidsskillnaden mellan farje steg
      * @return
      */
     public double yHastighetLuft(double vy, double ay, double deltaT) {
         return vy + (ay * deltaT);
     }
-
 }
